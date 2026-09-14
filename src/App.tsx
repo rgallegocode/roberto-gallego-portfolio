@@ -239,7 +239,7 @@ function App() {
       <a className="skip-link" href="#top">Skip to content</a>
       <header className="topbar">
         <div className="scroll-progress" role="progressbar" aria-label={t.progressLabel} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(scrollProgress)} style={{ transform: `scaleX(${scrollProgress / 100})` }} />
-        <a className="brand-lockup" href="#top" aria-label="Roberto Gallego Barbarán, home"><span className="brand-card" aria-hidden="true">R<br /><b>♠</b></span><span className="brand-name">Roberto Gallego Barbarán</span></a>
+         <a className="brand-lockup" href="#top" aria-label="Roberto Gallego Barbarán, home"><span className="brand-card" aria-hidden="true"><b>♠</b><b>♥</b><b>♦</b><b>♣</b></span><span className="brand-name">Roberto Gallego Barbarán</span></a>
         <nav aria-label="Main navigation">
           {t.nav.map((label, index) => <button key={label} onClick={() => scrollTo(sectionIds[index])}>{label}</button>)}
         </nav>
