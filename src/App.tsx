@@ -309,7 +309,7 @@ function SocialIcon({ kind }: { kind: 'github' | 'linkedin' }) {
 }
 
 function TimelineCard({ suit, title, detail, logo = false }: { suit: Suit; title: string; detail: string; logo?: boolean }) {
-  return <article className={`timeline-card${logo ? ' timeline-card-featured' : ''}`}><div className="timeline-marker">{logo ? <img src={assetPath('dekra-logo.jpg')} alt="DEKRA" /> : <span className={`timeline-suit suit-${suit}`} aria-hidden="true">{suits[suit]}</span>}</div><div><h3>{title}</h3><p>{detail}</p></div></article>
+  return <article className={`timeline-card${logo ? ' timeline-card-featured' : ''}`}><span className={`timeline-suit suit-${suit}`} aria-hidden="true">{suits[suit]}</span><div><h3>{title}</h3><p>{detail}</p>{logo && <img className="timeline-logo-bottom" src={assetPath('dekra-logo.jpg')} alt="DEKRA" />}</div></article>
 }
 
 export default App
