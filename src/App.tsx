@@ -60,6 +60,9 @@ const copy = {
     university: 'University of Málaga · 2023–2027 expected',
     training: 'University Extension in Blockchain Technologies · 490h',
     trainingDetail: 'Distributed systems, Solidity, smart contracts, Daml, Canton and decentralised infrastructure.',
+    dekraRole: 'AI Intern · DEKRA',
+    dekraDates: 'September 2026 – March 2027',
+    dekraDetail: 'Internship in the Artificial Intelligence department, working on practical solutions with AI.',
     viewGithub: 'View on GitHub',
     cvView: 'View CV',
     cvDownload: 'Download CV',
@@ -96,6 +99,9 @@ const copy = {
     university: 'Universidad de Málaga · 2023–2027 previsto',
     training: 'Extensión Universitaria en Tecnologías Blockchain · 490h',
     trainingDetail: 'Sistemas distribuidos, Solidity, smart contracts, Daml, Canton e infraestructura descentralizada.',
+    dekraRole: 'Prácticas en IA · DEKRA',
+    dekraDates: 'Septiembre 2026 – Marzo 2027',
+    dekraDetail: 'Prácticas en el departamento de Inteligencia Artificial, trabajando en soluciones aplicadas con IA.',
     viewGithub: 'Ver en GitHub',
     cvView: 'Ver CV',
     cvDownload: 'Descargar CV',
@@ -132,6 +138,9 @@ const copy = {
     university: 'Universität Málaga · 2023–2027 voraussichtlich',
     training: 'Universitäre Weiterbildung in Blockchain-Technologien · 490h',
     trainingDetail: 'Verteilte Systeme, Solidity, Smart Contracts, Daml, Canton und dezentrale Infrastruktur.',
+    dekraRole: 'KI-Praktikum · DEKRA',
+    dekraDates: 'September 2026 – März 2027',
+    dekraDetail: 'Praktikum in der Abteilung für Künstliche Intelligenz mit Fokus auf praxisnahe KI-Lösungen.',
     viewGithub: 'Auf GitHub ansehen',
     cvView: 'CV ansehen',
     cvDownload: 'CV herunterladen',
@@ -273,7 +282,7 @@ function App() {
 
         <section className="section journey-section" id="journey" aria-labelledby="journey-title">
           <div className="section-heading"><p className="section-label">{t.journeyLabel}</p><h2 id="journey-title">{t.journeyTitle}</h2></div>
-          <div className="timeline"><TimelineCard suit="spades" title={t.degree} detail={t.university} /><TimelineCard suit="diamonds" title={t.training} detail={t.trainingDetail} /></div>
+          <div className="timeline"><TimelineCard suit="hearts" title={t.dekraRole} detail={`${t.dekraDates} · ${t.dekraDetail}`} logo /><TimelineCard suit="spades" title={t.degree} detail={t.university} /><TimelineCard suit="diamonds" title={t.training} detail={t.trainingDetail} /></div>
         </section>
 
         <section className="section contact-section" id="contact" aria-labelledby="contact-title">
@@ -299,8 +308,8 @@ function SocialIcon({ kind }: { kind: 'github' | 'linkedin' }) {
   return <svg className="social-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.24 8.25h4.48V24H.24V8.25ZM7.34 8.25h4.29v2.15h.06c.6-1.13 2.06-2.33 4.24-2.33 4.53 0 5.37 2.98 5.37 6.86V24h-4.47v-8.04c0-1.92-.04-4.39-2.68-4.39-2.69 0-3.1 2.1-3.1 4.25V24H7.34V8.25Z" transform="translate(2.5 0) scale(.8)" /></svg>
 }
 
-function TimelineCard({ suit, title, detail }: { suit: Suit; title: string; detail: string }) {
-  return <article className="timeline-card"><span className={`timeline-suit suit-${suit}`} aria-hidden="true">{suits[suit]}</span><div><h3>{title}</h3><p>{detail}</p></div></article>
+function TimelineCard({ suit, title, detail, logo = false }: { suit: Suit; title: string; detail: string; logo?: boolean }) {
+  return <article className={`timeline-card${logo ? ' timeline-card-featured' : ''}`}><div className="timeline-marker">{logo ? <img src={assetPath('dekra-logo.svg')} alt="DEKRA" /> : <span className={`timeline-suit suit-${suit}`} aria-hidden="true">{suits[suit]}</span>}</div><div><h3>{title}</h3><p>{detail}</p></div></article>
 }
 
 export default App
