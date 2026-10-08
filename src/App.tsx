@@ -4,6 +4,7 @@ import type { CSSProperties } from 'react'
 type Language = 'en' | 'es' | 'de'
 type Suit = 'spades' | 'hearts' | 'diamonds' | 'clubs'
 const sectionIds = ['about', 'projects', 'skills', 'journey', 'contact'] as const
+const navSuits: Suit[] = ['spades', 'hearts', 'diamonds', 'clubs']
 
 type Project = {
   name: string
@@ -15,11 +16,11 @@ type Project = {
   href: string
 }
 
-const suits: Record<Suit, string> = {
-  spades: '♠',
-  hearts: '♥',
-  diamonds: '♦',
-  clubs: '♣',
+const suitPaths: Record<Suit, string> = {
+  spades: 'M12 2C8.8 5.8 3.4 9.5 3.4 14.1c0 3 2.1 4.8 4.7 4.8 1.7 0 3-.8 3.9-2.2-.3 2.2-1 3.6-2.1 4.4h4.2c-1.1-.8-1.8-2.2-2.1-4.4.9 1.4 2.2 2.2 3.9 2.2 2.6 0 4.7-1.8 4.7-4.8C20.6 9.5 15.2 5.8 12 2Z',
+  hearts: 'M12 21s-8.5-5.4-8.5-11.3A4.8 4.8 0 0 1 12 6.4a4.8 4.8 0 0 1 8.5 3.3C20.5 15.6 12 21 12 21Z',
+  diamonds: 'M12 2 20 12 12 22 4 12 12 2Z',
+  clubs: 'M12 2.4a4.1 4.1 0 0 0-4.1 4.1c0 .6.1 1.2.3 1.7a4.1 4.1 0 1 0 2.5 7.5c-.1 3.8-.7 5.6-2.3 6.7h7.2c-1.6-1.1-2.2-2.9-2.3-6.7a4.1 4.1 0 1 0 2.5-7.5c.2-.5.3-1.1.3-1.7A4.1 4.1 0 0 0 12 2.4Z',
 }
 
 const cvFiles: Record<Language, string> = {
@@ -195,6 +196,7 @@ function App() {
     return stored === 'es' || stored === 'de' ? stored : 'en'
   })
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [isCompactHeader, setIsCompactHeader] = useState(false)
   const t = copy[language]
 
   useEffect(() => {
@@ -210,6 +212,7 @@ function App() {
       frame = requestAnimationFrame(() => {
         const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
         setScrollProgress(scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0)
+        setIsCompactHeader(window.scrollY > 32)
       })
     }
 
@@ -237,12 +240,26 @@ function App() {
     <div className="site-shell">
       <div className="grain" aria-hidden="true" />
       <a className="skip-link" href="#top">Skip to content</a>
-      <header className="topbar">
+      <header className={`topbar${isCompactHeader ? ' is-compact' : ''}`}>
         <div className="scroll-progress" role="progressbar" aria-label={t.progressLabel} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(scrollProgress)} style={{ transform: `scaleX(${scrollProgress / 100})` }} />
-         <a className="brand-lockup" href="#top" aria-label="Roberto Gallego Barbarán, home"><span className="brand-card" aria-hidden="true"><b>♠</b><b>♥</b><b>♦</b><b>♣</b></span><span className="brand-name">Roberto Gallego Barbarán</span></a>
+        <a className="brand-lockup" href="#top" aria-label="Roberto Gallego Barbarán, home">
+          <span className="brand-card" aria-hidden="true">
+            <SuitIcon suit="spades" className="suit-spades" />
+            <SuitIcon suit="hearts" className="suit-hearts" />
+            <SuitIcon suit="diamonds" className="suit-diamonds" />
+            <SuitIcon suit="clubs" className="suit-clubs" />
+          </span>
+          <span className="brand-name">Roberto Gallego Barbarán</span>
+        </a>
         <nav aria-label="Main navigation">
-          {t.nav.map((label, index) => <button key={label} onClick={() => scrollTo(sectionIds[index])}>{label}</button>)}
+          {t.nav.map((label, index) => <button key={label} onClick={() => scrollTo(sectionIds[index])}>{index < navSuits.length && <SuitIcon suit={navSuits[index]} className={`nav-suit suit-${navSuits[index]}`} />}{label}</button>)}
         </nav>
+        <span className="topbar-suits" aria-hidden="true">
+          <SuitIcon suit="spades" className="suit-spades" />
+          <SuitIcon suit="hearts" className="suit-hearts" />
+          <SuitIcon suit="diamonds" className="suit-diamonds" />
+          <SuitIcon suit="clubs" className="suit-clubs" />
+        </span>
         <div className="language-switcher" aria-label={t.language}>
           {(['en', 'es', 'de'] as Language[]).map((code) => <button className={language === code ? 'selected' : ''} key={code} onClick={() => setLanguage(code)} aria-pressed={language === code}>{code.toUpperCase()}</button>)}
         </div>
@@ -259,15 +276,15 @@ function App() {
           </div>
           <div className="hero-card-wrap" aria-label="Playing card illustration">
             <div className="hero-card back-card" aria-hidden="true"><span>R</span></div>
-            <div className="hero-card ace-card"><span className="card-corner">A<br /><b>♠</b></span><span className="ace-symbol" aria-hidden="true">♠</span><span className="card-corner bottom">A<br /><b>♠</b></span></div>
-            <div className="profile-card"><span className="profile-suit suit-top-left" aria-hidden="true">♠</span><span className="profile-suit suit-top-right" aria-hidden="true">♥</span><div className="profile-photo-fallback" aria-hidden="true">RG</div><img src={assetPath('profile-photo.jpg')} alt={t.profileAlt} onError={(event) => { event.currentTarget.style.display = 'none' }} /><span className="profile-suit suit-bottom-left" aria-hidden="true">♣</span><span className="profile-suit suit-bottom-right" aria-hidden="true">♦</span></div>
+            <div className="hero-card ace-card"><span className="card-corner">A<SuitIcon suit="spades" className="card-corner-suit" /></span><SuitIcon suit="spades" className="ace-symbol" /><span className="card-corner bottom">A<SuitIcon suit="spades" className="card-corner-suit" /></span></div>
+            <div className="profile-card"><SuitIcon suit="spades" className="profile-suit suit-top-left suit-spades" /><SuitIcon suit="hearts" className="profile-suit suit-top-right suit-hearts" /><div className="profile-photo-fallback" aria-hidden="true">RG</div><img src={assetPath('profile-photo.jpg')} alt={t.profileAlt} onError={(event) => { event.currentTarget.style.display = 'none' }} /><SuitIcon suit="clubs" className="profile-suit suit-bottom-left suit-clubs" /><SuitIcon suit="diamonds" className="profile-suit suit-bottom-right suit-diamonds" /></div>
           </div>
           <div className="scroll-note" aria-hidden="true"><span /> {t.scrollNote}</div>
         </section>
 
         <section className="section about-section" id="about" aria-labelledby="about-title">
           <div className="section-heading"><p className="section-label">{t.aboutLabel}</p><h2 id="about-title">{t.aboutTitle}</h2></div>
-          <div className="about-grid"><p className="large-copy">{t.aboutText}</p><aside className="quote-card"><span className="quote-mark">“</span><p>{t.aboutNote}</p><span className="quote-suit">♣</span></aside></div>
+          <div className="about-grid"><p className="large-copy">{t.aboutText}</p><aside className="quote-card"><span className="quote-mark">“</span><p>{t.aboutNote}</p><SuitIcon suit="clubs" className="quote-suit suit-clubs" /></aside></div>
         </section>
 
         <section className="section" id="projects" aria-labelledby="projects-title">
@@ -277,7 +294,7 @@ function App() {
 
         <section className="section skills-section" id="skills" aria-labelledby="skills-title">
           <div className="section-heading"><p className="section-label">{t.skillsLabel}</p><h2 id="skills-title">{t.skillsTitle}</h2></div>
-          <div className="skills-grid">{skills[language].map((skill) => <article className="skill-card" key={skill.title}><span className={`suit suit-${skill.suit}`} aria-hidden="true">{suits[skill.suit]}</span><span className="skill-title">{skill.title}</span><span className="skill-items">{skill.items}</span></article>)}</div><p className="spoken-languages">{t.spokenLanguages}</p>
+          <div className="skills-grid">{skills[language].map((skill) => <article className="skill-card" key={skill.title}><SuitIcon suit={skill.suit} className={`suit suit-${skill.suit}`} /><span className="skill-title">{skill.title}</span><span className="skill-items">{skill.items}</span></article>)}</div><p className="spoken-languages">{t.spokenLanguages}</p>
         </section>
 
         <section className="section journey-section" id="journey" aria-labelledby="journey-title">
@@ -287,17 +304,21 @@ function App() {
 
         <section className="section contact-section" id="contact" aria-labelledby="contact-title">
           <div className="section-heading"><p className="section-label">{t.contactLabel}</p><h2 id="contact-title">{t.contactTitle}</h2></div>
-          <div className="contact-card"><div className="contact-copy"><p>{t.contactText}</p><a className="contact-email" href="mailto:robertogallego004@gmail.com">robertogallego004@gmail.com <span aria-hidden="true">↗</span></a></div><div className="contact-details"><span className="contact-suit" aria-hidden="true">♥</span><div className="contact-links"><a className="contact-social-link" href="https://github.com/rgallegocode" target="_blank" rel="noreferrer"><SocialIcon kind="github" /><span>GitHub</span><b aria-hidden="true">↗</b></a><a className="contact-social-link" href="https://www.linkedin.com/in/roberto-gallego-barbar%C3%A1n-5508b329b/" target="_blank" rel="noreferrer"><SocialIcon kind="linkedin" /><span>LinkedIn</span><b aria-hidden="true">↗</b></a></div></div></div>
+          <div className="contact-card"><div className="contact-copy"><p>{t.contactText}</p><a className="contact-email" href="mailto:robertogallego004@gmail.com">robertogallego004@gmail.com <span aria-hidden="true">↗</span></a></div><div className="contact-details"><SuitIcon suit="hearts" className="contact-suit suit-hearts" /><div className="contact-links"><a className="contact-social-link" href="https://github.com/rgallegocode" target="_blank" rel="noreferrer"><SocialIcon kind="github" /><span>GitHub</span><b aria-hidden="true">↗</b></a><a className="contact-social-link" href="https://www.linkedin.com/in/roberto-gallego-barbar%C3%A1n-5508b329b/" target="_blank" rel="noreferrer"><SocialIcon kind="linkedin" /><span>LinkedIn</span><b aria-hidden="true">↗</b></a></div></div></div>
         </section>
       </main>
 
-      <footer className="footer"><div><span className="footer-suit">♥</span><span>{t.footer}</span></div><div className="footer-links"><a href="https://github.com/rgallegocode" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/roberto-gallego-barbar%C3%A1n-5508b329b/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="mailto:robertogallego004@gmail.com">{t.email} ↗</a></div></footer>
+      <footer className="footer"><div><SuitIcon suit="hearts" className="footer-suit suit-hearts" /><span>{t.footer}</span></div><div className="footer-links"><a href="https://github.com/rgallegocode" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/roberto-gallego-barbar%C3%A1n-5508b329b/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="mailto:robertogallego004@gmail.com">{t.email} ↗</a></div></footer>
     </div>
   )
 }
 
 function ProjectCard({ project, index, label }: { project: Project; index: number; label: string }) {
-  return <article className={`project-card suit-${project.suit}`} style={{ '--delay': `${index * 100}ms` } as CSSProperties}><div className="card-topline"><span className="project-index">0{index + 1}</span><span className="project-suit" aria-hidden="true">{suits[project.suit]}</span></div><p className="card-eyebrow">{project.eyebrow}</p><h3>{project.name}</h3><p className="project-description">{project.description}</p><p className="project-detail">{project.detail}</p><div className="project-bottom"><div className="stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><a href={project.href} target="_blank" rel="noreferrer" aria-label={`${label}: ${project.name}`}>↗</a></div></article>
+  return <article className={`project-card suit-${project.suit}`} style={{ '--delay': `${index * 100}ms` } as CSSProperties}><div className="card-topline"><span className="project-index">0{index + 1}</span><SuitIcon suit={project.suit} className="project-suit" /></div><p className="card-eyebrow">{project.eyebrow}</p><h3>{project.name}</h3><p className="project-description">{project.description}</p><p className="project-detail">{project.detail}</p><div className="project-bottom"><div className="stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><a href={project.href} target="_blank" rel="noreferrer" aria-label={`${label}: ${project.name}`}>↗</a></div></article>
+}
+
+function SuitIcon({ suit, className = '' }: { suit: Suit; className?: string }) {
+  return <svg className={`suit-icon ${className}`} viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={suitPaths[suit]} /></svg>
 }
 
 function SocialIcon({ kind }: { kind: 'github' | 'linkedin' }) {
@@ -309,7 +330,7 @@ function SocialIcon({ kind }: { kind: 'github' | 'linkedin' }) {
 }
 
 function TimelineCard({ suit, title, detail, logo = false }: { suit: Suit; title: string; detail: string; logo?: boolean }) {
-  return <article className={`timeline-card${logo ? ' timeline-card-featured' : ''}`}><span className={`timeline-suit suit-${suit}`} aria-hidden="true">{suits[suit]}</span><div><h3>{title}</h3><p>{detail}</p>{logo && <img className="timeline-logo-bottom" src={assetPath('dekra-logo.jpg')} alt="DEKRA" />}</div></article>
+  return <article className={`timeline-card${logo ? ' timeline-card-featured' : ''}`}><SuitIcon suit={suit} className={`timeline-suit suit-${suit}`} /><div><h3>{title}</h3><p>{detail}</p>{logo && <img className="timeline-logo-bottom" src={assetPath('dekra-logo.jpg')} alt="DEKRA" />}</div></article>
 }
 
 export default App
