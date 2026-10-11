@@ -1,0 +1,68 @@
+{
+  "en": [
+    {
+      "suit": "spades",
+      "title": "Backend",
+      "items": "Java · Spring Boot · JPA · REST · SQL"
+    },
+    {
+      "suit": "diamonds",
+      "title": "Infrastructure",
+      "items": "Docker · Linux · CI/CD · Nginx · Terraform"
+    },
+    {
+      "suit": "clubs",
+      "title": "Languages",
+      "items": "Go · Python · JavaScript · C/C++ · Git"
+    },
+    {
+      "suit": "hearts",
+      "title": "Quality & systems",
+      "items": "JUnit · Mockito · Playwright · gRPC · Distributed systems"
+    }
+  ],
+  "es": [
+    {
+      "suit": "spades",
+      "title": "Backend",
+      "items": "Java · Spring Boot · JPA · REST · SQL"
+    },
+    {
+      "suit": "diamonds",
+      "title": "Infraestructura",
+      "items": "Docker · Linux · CI/CD · Nginx · Terraform"
+    },
+    {
+      "suit": "clubs",
+      "title": "Lenguajes",
+      "items": "Go · Python · JavaScript · C/C++ · Git"
+    },
+    {
+      "suit": "hearts",
+      "title": "Calidad y sistemas",
+      "items": "JUnit · Mockito · Playwright · gRPC · Distributed systems"
+    }
+  ],
+  "de": [
+    {
+      "suit": "spades",
+      "title": "Backend",
+      "items": "Java · Spring Boot · JPA · REST · SQL"
+    },
+    {
+      "suit": "diamonds",
+      "title": "Infrastruktur",
+      "items": "Docker · Linux · CI/CD · Nginx · Terraform"
+    },
+    {
+      "suit": "clubs",
+      "title": "Programmiersprachen",
+      "items": "Go · Python · JavaScript · C/C++ · Git"
+    },
+    {
+      "suit": "hearts",
+      "title": "Qualität und Systeme",
+      "items": "JUnit · Mockito · Playwright · gRPC · Distributed systems"
+    }
+  ]
+}

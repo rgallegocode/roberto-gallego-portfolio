@@ -1,0 +1,29 @@
+/* Deal-on-scroll: elements start face-down and flip up when they enter the viewport. */
+.js-reveal .project-card[data-reveal],
+.js-reveal .skill-card[data-reveal] {
+  opacity: 0;
+  transform: translateY(40px) rotateY(80deg);
+  transform-origin: left center;
+  transition: opacity .6s ease var(--delay, 0ms), transform .8s var(--ease-deal) var(--delay, 0ms), box-shadow .35s ease, border-color .25s ease;
+}
+.js-reveal .timeline-card[data-reveal],
+.js-reveal .contact-card[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .6s ease var(--delay, 0ms), transform .7s var(--ease-deal) var(--delay, 0ms);
+}
+.js-reveal [data-reveal].is-visible { opacity: 1; transform: none; }
+/* once dealt, hover transitions must be immediate again */
+.js-reveal .project-card.is-visible,
+.js-reveal .skill-card.is-visible { transition: transform .35s var(--ease-deal), box-shadow .35s ease, border-color .25s ease; }
+.js-reveal .project-card.is-visible:hover { transform: translateY(-12px) rotate(-1deg); }
+.js-reveal .skill-card.is-visible:hover { transform: translateY(-6px) rotate(-1.2deg); }
+.js-reveal .skill-card.is-visible:nth-child(even):hover { transform: translateY(-6px) rotate(1.2deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ace-card { animation: none; }
+  .js-reveal [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .project-card, .skill-card, .quote-card, .primary-button, .cv-link, .contact-chip,
+  .topbar, .brand-card, .nav-suit, .table-rail i, .table-rail span { transition: none; }
+}

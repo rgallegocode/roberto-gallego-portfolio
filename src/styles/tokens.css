@@ -1,0 +1,37 @@
+:root {
+  color-scheme: dark;
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  --font-sans: 'DM Sans Variable', 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+
+  /* felt table */
+  --green: #101917;
+  --green-light: #172621;
+  --felt: #162720;
+  --felt-high: #1c302a;
+  --rail: rgba(213, 174, 110, .28);
+
+  /* cards and chips */
+  --cream: #eee9de;
+  --card-cream: #e7e1d5;
+  --muted: #9ba49c;
+  --red: #d56550;
+  --red-soft: #f29a89;
+  --red-card: #a84f47;
+  --gold: #d5ae6e;
+  --gold-soft: #f4c27c;
+  --gold-card: #c5964d;
+  --sage-card: #b7c5ba;
+  --line: rgba(238, 233, 222, .14);
+
+  --shadow-card: 18px 25px 50px rgba(0, 0, 0, .3);
+  --header-h: 88px;
+  --ease-deal: cubic-bezier(.2, .8, .2, 1);
+
+  color: var(--cream);
+  background: var(--green);
+}

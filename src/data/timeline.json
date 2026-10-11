@@ -1,0 +1,80 @@
+{
+  "en": [
+    {
+      "suit": "hearts",
+      "title": "AI & Automation Engineer Intern · DEKRA",
+      "detail": "September 2026 – March 2027 · Working on software engineering projects, process automation, and AI-driven solutions.",
+      "logo": "dekra-logo.jpg"
+    },
+    {
+      "suit": "diamonds",
+      "title": "Backend & Blockchain Developer · IOBuilders -- University-Industry Collaboration",
+      "detail": "2026 · Tokenised bond platform on a Dockerised Canton network, with a Go backend and Daml contracts.",
+      "logo": null
+    },
+    {
+      "suit": "spades",
+      "title": "BSc in Software Engineering",
+      "detail": "University of Málaga · 2023–2027 expected",
+      "logo": null
+    },
+    {
+      "suit": "diamonds",
+      "title": "University Extension in Blockchain Technologies · 490h",
+      "detail": "Distributed systems, Solidity, smart contracts, Daml, Canton and decentralised infrastructure.",
+      "logo": null
+    }
+  ],
+  "es": [
+    {
+      "suit": "hearts",
+      "title": "Prácticas en Ingeniería de IA y Automatización · DEKRA",
+      "detail": "Septiembre 2026 – Marzo 2027 · Trabajando en proyectos de ingeniería de software, automatización de procesos y soluciones basadas en IA.",
+      "logo": "dekra-logo.jpg"
+    },
+    {
+      "suit": "diamonds",
+      "title": "Desarrollador Backend & Blockchain · IOBuilders -- Colaboración Universidad-Empresa",
+      "detail": "2026 · Plataforma de bonos tokenizados sobre una red Canton dockerizada, con backend en Go y contratos Daml.",
+      "logo": null
+    },
+    {
+      "suit": "spades",
+      "title": "Grado en Ingeniería del Software",
+      "detail": "Universidad de Málaga · 2023–2027 previsto",
+      "logo": null
+    },
+    {
+      "suit": "diamonds",
+      "title": "Extensión Universitaria en Tecnologías Blockchain · 490h",
+      "detail": "Sistemas distribuidos, Solidity, smart contracts, Daml, Canton e infraestructura descentralizada.",
+      "logo": null
+    }
+  ],
+  "de": [
+    {
+      "suit": "hearts",
+      "title": "Praktikum als KI- & Automatisierungsingenieur · DEKRA",
+      "detail": "September 2026 – März 2027 · Arbeit an Softwaretechnik-Projekten, Prozessautomatisierung und KI-gestützten Lösungen.",
+      "logo": "dekra-logo.jpg"
+    },
+    {
+      "suit": "diamonds",
+      "title": "Backend & Blockchain Developer · IOBuilders -- University-Industry Collaboration",
+      "detail": "2026 · Tokenised bond platform on a Dockerised Canton network, with a Go backend and Daml contracts.",
+      "logo": null
+    },
+    {
+      "suit": "spades",
+      "title": "Bachelor Softwaretechnik",
+      "detail": "Universität Málaga · 2023–2027 voraussichtlich",
+      "logo": null
+    },
+    {
+      "suit": "diamonds",
+      "title": "Universitäre Weiterbildung in Blockchain-Technologien · 490h",
+      "detail": "Verteilte Systeme, Solidity, Smart Contracts, Daml, Canton und dezentrale Infrastruktur.",
+      "logo": null
+    }
+  ]
+}

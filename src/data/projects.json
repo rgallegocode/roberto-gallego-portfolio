@@ -1,0 +1,131 @@
+{
+  "en": [
+    {
+      "name": "Bancosol Campaigns",
+      "suit": "hearts",
+      "eyebrow": "Team web application",
+      "description": "A food-collection campaign platform with a role-aware Captain module.",
+      "detail": "Layered Spring MVC architecture with authenticated-user filtering, JWT access control and MariaDB persistence.",
+      "stack": [
+        "Java 17",
+        "Spring Boot",
+        "JPA",
+        "JWT"
+      ],
+      "href": "https://github.com/rgallegocode/Bancosol"
+    },
+    {
+      "name": "Canton Daml IOBuilders UMA",
+      "suit": "diamonds",
+      "eyebrow": "Distributed systems",
+      "description": "A local tokenised bond platform running across a Dockerised Canton network.",
+      "detail": "Go API, Daml contracts, gRPC ledger integration and Playwright tests for issuance, transfers and burns.",
+      "stack": [
+        "Go",
+        "Daml",
+        "Canton",
+        "Docker"
+      ],
+      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA"
+    },
+    {
+      "name": "Cava Bot",
+      "suit": "clubs",
+      "eyebrow": "Personal automation",
+      "description": "A daily Telegram financial briefing assembled from news, markets and an LLM.",
+      "detail": "A serverless-style scheduled pipeline using external APIs, Gemini and GitHub Actions secrets.",
+      "stack": [
+        "Python",
+        "Gemini API",
+        "GitHub Actions"
+      ],
+      "href": "https://github.com/rgallegocode/cava-bot"
+    }
+  ],
+  "es": [
+    {
+      "name": "Bancosol Campañas",
+      "suit": "hearts",
+      "eyebrow": "Aplicación web en equipo",
+      "description": "Plataforma de campañas de recogida de alimentos con un módulo específico para capitanes.",
+      "detail": "Arquitectura Spring MVC por capas, filtrado por usuario autenticado, control JWT y persistencia MariaDB.",
+      "stack": [
+        "Java 17",
+        "Spring Boot",
+        "JPA",
+        "JWT"
+      ],
+      "href": "https://github.com/rgallegocode/Bancosol"
+    },
+    {
+      "name": "Canton Daml IOBuilders UMA",
+      "suit": "diamonds",
+      "eyebrow": "Sistemas distribuidos",
+      "description": "Plataforma local de bonos tokenizados sobre una red Canton dockerizada.",
+      "detail": "API en Go, contratos Daml, integración gRPC con el ledger y pruebas Playwright.",
+      "stack": [
+        "Go",
+        "Daml",
+        "Canton",
+        "Docker"
+      ],
+      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA"
+    },
+    {
+      "name": "Cava Bot",
+      "suit": "clubs",
+      "eyebrow": "Automatización personal",
+      "description": "Boletín financiero diario para Telegram combinando noticias, mercados y un LLM.",
+      "detail": "Pipeline programado sin servidor dedicado usando APIs externas, Gemini y GitHub Actions.",
+      "stack": [
+        "Python",
+        "Gemini API",
+        "GitHub Actions"
+      ],
+      "href": "https://github.com/rgallegocode/cava-bot"
+    }
+  ],
+  "de": [
+    {
+      "name": "Bancosol Campañas",
+      "suit": "hearts",
+      "eyebrow": "Team-Webanwendung",
+      "description": "Plattform für Lebensmittel-Sammelaktionen mit einem rollenbasierten Kapitänsmodul.",
+      "detail": "Schichtenarchitektur mit Spring MVC, Benutzerfilterung, JWT-Zugriffskontrolle und MariaDB.",
+      "stack": [
+        "Java 17",
+        "Spring Boot",
+        "JPA",
+        "JWT"
+      ],
+      "href": "https://github.com/rgallegocode/Bancosol"
+    },
+    {
+      "name": "Canton Daml IOBuilders UMA",
+      "suit": "diamonds",
+      "eyebrow": "Verteilte Systeme",
+      "description": "Lokale Plattform für tokenisierte Anleihen auf einem dockerisierten Canton-Netzwerk.",
+      "detail": "Go-API, Daml-Verträge, gRPC-Ledger-Integration und Playwright-Tests.",
+      "stack": [
+        "Go",
+        "Daml",
+        "Canton",
+        "Docker"
+      ],
+      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA"
+    },
+    {
+      "name": "Cava Bot",
+      "suit": "clubs",
+      "eyebrow": "Persönliche Automatisierung",
+      "description": "Tägliches Finanzbriefing für Telegram aus Nachrichten, Marktdaten und einem LLM.",
+      "detail": "Zeitgesteuerte Pipeline ohne eigenen Server mit externen APIs, Gemini und GitHub Actions.",
+      "stack": [
+        "Python",
+        "Gemini API",
+        "GitHub Actions"
+      ],
+      "href": "https://github.com/rgallegocode/cava-bot"
+    }
+  ]
+}
