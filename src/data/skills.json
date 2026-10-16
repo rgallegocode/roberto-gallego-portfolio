@@ -13,7 +13,7 @@
     {
       "suit": "clubs",
       "title": "Languages",
-      "items": "Go · Python · JavaScript · C/C++ · Git"
+      "items": "Go · Python · TypeScript · JavaScript · C/C++ · Git"
     },
     {
       "suit": "hearts",
@@ -35,7 +35,7 @@
     {
       "suit": "clubs",
       "title": "Lenguajes",
-      "items": "Go · Python · JavaScript · C/C++ · Git"
+      "items": "Go · Python · TypeScript · JavaScript · C/C++ · Git"
     },
     {
       "suit": "hearts",
@@ -57,7 +57,7 @@
     {
       "suit": "clubs",
       "title": "Programmiersprachen",
-      "items": "Go · Python · JavaScript · C/C++ · Git"
+      "items": "Go · Python · TypeScript · JavaScript · C/C++ · Git"
     },
     {
       "suit": "hearts",

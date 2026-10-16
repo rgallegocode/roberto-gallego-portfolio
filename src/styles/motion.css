@@ -17,6 +17,7 @@
 .js-reveal .project-card.is-visible,
 .js-reveal .skill-card.is-visible { transition: transform .35s var(--ease-deal), box-shadow .35s ease, border-color .25s ease; }
 .js-reveal .project-card.is-visible:hover { transform: translateY(-12px) rotate(-1deg); }
+.js-reveal .project-card-featured.is-visible:hover { transform: translateY(-6px); }
 .js-reveal .skill-card.is-visible:hover { transform: translateY(-6px) rotate(-1.2deg); }
 .js-reveal .skill-card.is-visible:nth-child(even):hover { transform: translateY(-6px) rotate(1.2deg); }
 

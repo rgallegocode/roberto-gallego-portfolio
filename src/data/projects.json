@@ -1,6 +1,34 @@
 {
   "en": [
     {
+      "name": "Intelligent Game Validation",
+      "suit": "spades",
+      "eyebrow": "Malackathon 2026 · 4th place",
+      "description": "Validates third-party casino games the way a player sees them, with no access to the game's DOM.",
+      "detail": "Frame diffing, template matching and local OCR, cross-checked against the provider's network traffic. Betsson challenge, team of four.",
+      "stack": [
+        "TypeScript",
+        "Playwright",
+        "OCR",
+        "Computer vision"
+      ],
+      "href": "https://github.com/saalma4/Malakathon-26",
+      "images": [
+        {
+          "src": "projects/malackathon/validator-pass.jpg",
+          "alt": "Validator web UI after a real spin on Sweet Bonanza, with all 6 checks passing"
+        },
+        {
+          "src": "projects/malackathon/validator-forced-failure.jpg",
+          "alt": "Forced-failure demo showing failed checks with expected versus observed values"
+        },
+        {
+          "src": "projects/malackathon/validator-report.jpg",
+          "alt": "Self-contained HTML report with the checks, session video and step log"
+        }
+      ]
+    },
+    {
       "name": "Bancosol Campaigns",
       "suit": "hearts",
       "eyebrow": "Team web application",
@@ -12,7 +40,8 @@
         "JPA",
         "JWT"
       ],
-      "href": "https://github.com/rgallegocode/Bancosol"
+      "href": "https://github.com/rgallegocode/Bancosol",
+      "images": []
     },
     {
       "name": "Canton Daml IOBuilders UMA",
@@ -26,7 +55,8 @@
         "Canton",
         "Docker"
       ],
-      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA"
+      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA",
+      "images": []
     },
     {
       "name": "Cava Bot",
@@ -39,10 +69,39 @@
         "Gemini API",
         "GitHub Actions"
       ],
-      "href": "https://github.com/rgallegocode/cava-bot"
+      "href": "https://github.com/rgallegocode/cava-bot",
+      "images": []
     }
   ],
   "es": [
+    {
+      "name": "Validación Inteligente de Juegos",
+      "suit": "spades",
+      "eyebrow": "Malackathon 2026 · 4º puesto",
+      "description": "Valida juegos de casino de terceros tal y como los ve el jugador, sin acceso al DOM del juego.",
+      "detail": "Diferencia de fotogramas, búsqueda por plantilla y OCR local, contrastados con el tráfico de red del proveedor. Reto de Betsson, equipo de cuatro.",
+      "stack": [
+        "TypeScript",
+        "Playwright",
+        "OCR",
+        "Computer vision"
+      ],
+      "href": "https://github.com/saalma4/Malakathon-26",
+      "images": [
+        {
+          "src": "projects/malackathon/validator-pass.jpg",
+          "alt": "Interfaz del validador tras un giro real en Sweet Bonanza, con las 6 comprobaciones correctas"
+        },
+        {
+          "src": "projects/malackathon/validator-forced-failure.jpg",
+          "alt": "Demo de fallos forzados con las comprobaciones fallidas, valor esperado frente a observado"
+        },
+        {
+          "src": "projects/malackathon/validator-report.jpg",
+          "alt": "Informe HTML autónomo con las comprobaciones, el vídeo de la sesión y los pasos"
+        }
+      ]
+    },
     {
       "name": "Bancosol Campañas",
       "suit": "hearts",
@@ -55,7 +114,8 @@
         "JPA",
         "JWT"
       ],
-      "href": "https://github.com/rgallegocode/Bancosol"
+      "href": "https://github.com/rgallegocode/Bancosol",
+      "images": []
     },
     {
       "name": "Canton Daml IOBuilders UMA",
@@ -69,7 +129,8 @@
         "Canton",
         "Docker"
       ],
-      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA"
+      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA",
+      "images": []
     },
     {
       "name": "Cava Bot",
@@ -82,12 +143,41 @@
         "Gemini API",
         "GitHub Actions"
       ],
-      "href": "https://github.com/rgallegocode/cava-bot"
+      "href": "https://github.com/rgallegocode/cava-bot",
+      "images": []
     }
   ],
   "de": [
     {
-      "name": "Bancosol Campañas",
+      "name": "Intelligente Spielvalidierung",
+      "suit": "spades",
+      "eyebrow": "Malackathon 2026 · 4. Platz",
+      "description": "Validiert Casinospiele von Drittanbietern so, wie Spieler sie sehen, ohne Zugriff auf das DOM des Spiels.",
+      "detail": "Frame-Differenzen, Template-Matching und lokales OCR, abgeglichen mit dem Netzwerkverkehr des Anbieters. Betsson-Challenge, Viererteam.",
+      "stack": [
+        "TypeScript",
+        "Playwright",
+        "OCR",
+        "Computer vision"
+      ],
+      "href": "https://github.com/saalma4/Malakathon-26",
+      "images": [
+        {
+          "src": "projects/malackathon/validator-pass.jpg",
+          "alt": "Weboberfläche des Validators nach einem echten Spin in Sweet Bonanza, alle 6 Prüfungen bestanden"
+        },
+        {
+          "src": "projects/malackathon/validator-forced-failure.jpg",
+          "alt": "Demo mit erzwungenen Fehlern, fehlgeschlagene Prüfungen mit erwartetem und beobachtetem Wert"
+        },
+        {
+          "src": "projects/malackathon/validator-report.jpg",
+          "alt": "Eigenständiger HTML-Bericht mit Prüfungen, Sitzungsvideo und Schrittprotokoll"
+        }
+      ]
+    },
+    {
+      "name": "Bancosol-Kampagnen",
       "suit": "hearts",
       "eyebrow": "Team-Webanwendung",
       "description": "Plattform für Lebensmittel-Sammelaktionen mit einem rollenbasierten Kapitänsmodul.",
@@ -98,7 +188,8 @@
         "JPA",
         "JWT"
       ],
-      "href": "https://github.com/rgallegocode/Bancosol"
+      "href": "https://github.com/rgallegocode/Bancosol",
+      "images": []
     },
     {
       "name": "Canton Daml IOBuilders UMA",
@@ -112,7 +203,8 @@
         "Canton",
         "Docker"
       ],
-      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA"
+      "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA",
+      "images": []
     },
     {
       "name": "Cava Bot",
@@ -125,7 +217,8 @@
         "Gemini API",
         "GitHub Actions"
       ],
-      "href": "https://github.com/rgallegocode/cava-bot"
+      "href": "https://github.com/rgallegocode/cava-bot",
+      "images": []
     }
   ]
 }

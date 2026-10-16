@@ -16,6 +16,7 @@ export type Project = {
   detail: string
   stack: string[]
   href: string
+  images: { src: string; alt: string }[]
 }
 
 export const languages: Language[] = ['en', 'es', 'de']
