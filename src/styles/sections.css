@@ -5,7 +5,7 @@
 
 /* about */
 .about-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 13%; align-items: center; }
-.large-copy { margin: 0; font: 500 clamp(1.8rem, 3.4vw, 3.7rem)/1.18 var(--font-serif); letter-spacing: -.035em; }
+.large-copy { margin: 0; font: 500 clamp(1.5rem, 2.3vw, 2.5rem)/1.25 var(--font-serif); letter-spacing: -.025em; }
 .quote-card { position: relative; min-height: 250px; padding: 28px; border: 1px solid var(--line); border-radius: 8px; background: rgba(238, 233, 222, .03); transform: rotate(2deg); transition: transform .3s ease; }
 .quote-card:hover { transform: rotate(-1deg) translateY(-5px); }
 .quote-mark { color: var(--red); font: 5rem var(--font-serif); line-height: .5; }
@@ -93,7 +93,10 @@
 .journey-section { padding-bottom: 170px; }
 .timeline { counter-reset: step; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; position: relative; }
 .timeline-card { position: relative; min-height: 190px; padding: 52px 24px 26px; border: 1px solid var(--line); border-top: 2px solid var(--red); border-radius: 8px; background: rgba(238, 233, 222, .025); }
-.timeline-card::before { content: ''; position: absolute; top: -2px; left: -19px; width: 18px; height: 2px; background: var(--red); opacity: .6; }
+/* journey cards sit in a single row, so every link has a card on both sides */
+.journey-section .timeline { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+/* link drawn at the node's height, where the side borders are straight (the top corners are rounded) */
+.timeline-card::before { content: ''; position: absolute; top: 27px; left: -19px; width: 18px; height: 2px; background: var(--red); opacity: .6; }
 .timeline-card:first-child::before { display: none; }
 .timeline-card-featured { border-color: rgba(0, 129, 67, .5); border-top-color: #00a45a; background: rgba(0, 129, 67, .08); }
 .timeline-card-featured::before { background: #00a45a; }
@@ -116,10 +119,12 @@
   .project-card-featured { grid-template-columns: 1fr; gap: 24px; }
   .skills-grid { grid-template-columns: 1fr; }
   .spoken-languages { grid-column: 1; }
-  .timeline { grid-template-columns: 1fr; }
+  .timeline, .journey-section .timeline { grid-template-columns: 1fr; grid-auto-flow: row; }
   .timeline-card::before { display: none; }
 }
 @media (min-width: 821px) and (max-width: 1100px) {
+  .journey-section .timeline { grid-template-columns: 1fr 1fr; grid-auto-flow: row; }
+  .journey-section .timeline-card:nth-child(2n + 1)::before { display: none; }
   .project-grid { grid-template-columns: 1fr 1fr; }
   .project-card-featured { grid-template-columns: 1fr; gap: 24px; }
   .skills-section { grid-template-columns: 1fr; }
