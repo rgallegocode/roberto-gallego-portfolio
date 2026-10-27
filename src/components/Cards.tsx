@@ -90,7 +90,8 @@ export function TimelineCard({ suit, title, detail, step, logo = null, href = nu
       <span className="timeline-step" aria-hidden="true">{String(step).padStart(2, '0')}</span>
       <h3>{title}</h3>
       <p>{detail}</p>
-      {href && <p><a className="text-link" href={href} target="_blank" rel="noreferrer">{hrefLabel} <span aria-hidden="true">↗</span></a></p>}
+      {href && href.includes('linkedin.com') && <p><a className="text-link timeline-linkedin" href={href} target="_blank" rel="noreferrer"><SocialIcon kind="linkedin" /> LinkedIn <span aria-hidden="true">↗</span></a></p>}
+      {href && !href.includes('linkedin.com') && <p><a className="text-link" href={href} target="_blank" rel="noreferrer">{hrefLabel} <span aria-hidden="true">↗</span></a></p>}
       {logo && (
         <picture className="timeline-logo-plate">
           {webp && <source srcSet={assetPath(webp)} type="image/webp" />}
