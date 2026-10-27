@@ -83,7 +83,7 @@ type TimelineProps = {
 }
 
 export function TimelineCard({ suit, title, detail, step, logo = null, href = null, hrefLabel = '' }: TimelineProps) {
-  const webp = logo ? webpOf(logo) : null
+  const webp = logo && !logo.endsWith('.svg') ? webpOf(logo) : null
   return (
     <li className={`timeline-card${logo ? ' timeline-card-featured' : ''}`} data-reveal style={{ '--delay': `${(step - 1) * 90}ms` } as CSSProperties}>
       <span className="timeline-node" aria-hidden="true"><SuitIcon suit={suit} className={`suit-${suit}`} /></span>
@@ -91,9 +91,9 @@ export function TimelineCard({ suit, title, detail, step, logo = null, href = nu
       <h3>{title}</h3>
       <p>{detail}</p>
       {href && <p><a className="text-link" href={href} target="_blank" rel="noreferrer">{hrefLabel} <span aria-hidden="true">↗</span></a></p>}
-      {logo && webp && (
-        <picture>
-          <source srcSet={assetPath(webp)} type="image/webp" />
+      {logo && (
+        <picture className="timeline-logo-plate">
+          {webp && <source srcSet={assetPath(webp)} type="image/webp" />}
           <img className="timeline-logo-bottom" src={assetPath(logo)} width={272} height={75} loading="lazy" decoding="async" alt={title.split(' · ').pop() ?? ''} />
         </picture>
       )}
