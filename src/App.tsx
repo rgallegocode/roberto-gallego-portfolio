@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  copy, credentials, initialLanguage, numberedLabel, prefersReducedMotion, profile, projects, skills, storeLanguage, timeline, uiStrings,
+  copy, credentials, featuredFirst, initialLanguage, numberedLabel, prefersReducedMotion, profile, projects, skills, storeLanguage, timeline, uiStrings,
 } from './lib'
 import type { Language } from './lib'
 import { useActiveSection, useReveal } from './hooks'
@@ -112,7 +112,7 @@ function App() {
 
         <section className="section" id="projects" aria-labelledby="projects-title">
           <div className="section-heading"><p className="section-label">{label('projects', t.projectsLabel)}</p><h2 id="projects-title">{t.projectsTitle}</h2></div>
-          <div className="project-grid">{projects[language].map((project, index) => <ProjectCard key={project.href} project={project} index={index} label={t.viewGithub} />)}</div>
+          <div className="project-grid">{featuredFirst(projects[language]).map((project, index) => <ProjectCard key={project.href} project={project} index={index} label={t.viewGithub} />)}</div>
         </section>
 
         <section className="section skills-section" id="skills" aria-labelledby="skills-title">

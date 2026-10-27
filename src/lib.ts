@@ -43,6 +43,9 @@ export const cvDownloadName = (language: Language) => `Roberto-Gallego-CV-${lang
 // Do not edit those JSON files by hand.
 export const copy = copyData as Record<Language, (typeof copyData)['en']>
 export const projects = projectsData as Record<Language, Project[]>
+// projects with screenshots span the row, so they go first; the rest share the row below
+export const featuredFirst = (list: Project[]) =>
+  [...list].sort((a, b) => Number(b.images.length > 0) - Number(a.images.length > 0))
 export const skills = skillsData as Record<Language, { suit: Suit; title: string; items: string }[]>
 export const timeline = timelineData as Record<Language, { suit: Suit; title: string; detail: string; logo: string | null }[]>
 export const credentials = credentialsData as Record<Language, {
