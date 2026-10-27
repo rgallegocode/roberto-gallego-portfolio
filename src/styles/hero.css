@@ -30,10 +30,17 @@
 .hero h1 span { display: block; }
 .hero h1 span:last-child { color: var(--red); font-style: italic; }
 .hero-intro { max-width: 440px; font-size: 1.1rem; line-height: 1.65; color: var(--muted); }
-.hero-actions { display: flex; align-items: center; gap: 28px; margin-top: 32px; }
+/* one row of chips: deal button + both CV links, same height */
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 32px; }
+.hero-actions > * { justify-content: center; min-height: 52px; }
+.hero-contact { display: inline-flex; gap: 6px; margin-top: 22px; padding-bottom: 2px; border-bottom: 1px solid rgba(238, 233, 222, .35); transition: border-color .25s ease; }
+.hero-contact:hover, .hero-contact:focus-visible { border-color: var(--red); }
 
 .primary-button {
-  padding: 15px 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
   border: 1px solid var(--cream);
   border-radius: 999px;
   background: var(--cream);
@@ -44,7 +51,6 @@
 }
 .primary-button:hover, .primary-button:focus-visible { background: var(--red); border-color: var(--red); color: var(--cream); transform: translateY(-3px); }
 
-.cv-actions { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
 .cv-link {
   display: inline-flex;
   align-items: center;
@@ -151,7 +157,14 @@
   .hero-card { left: 22%; width: 205px; }
   .back-card { font-size: 6rem; }
   .profile-card { right: 3%; width: 120px; border-width: 6px; }
-  .hero-actions { align-items: flex-start; flex-direction: column; gap: 20px; }
-  .cv-actions { flex-direction: column; align-items: flex-start; }
-  .cv-link { min-height: 48px; }
+}
+/* narrow copy column: deal button on top, both CV links sharing the row below, no ragged right edge */
+@container (max-width: 540px) {
+  .hero-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hero-actions > * { min-height: 50px; padding: 0 12px; gap: 8px; white-space: nowrap; }
+  .hero-actions .primary-button { grid-column: 1 / -1; }
+  .hero-actions .cv-link { letter-spacing: .04em; }
+}
+@container (max-width: 330px) {
+  .hero-actions { grid-template-columns: 1fr; }
 }

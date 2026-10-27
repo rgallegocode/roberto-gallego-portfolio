@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { CSSProperties } from 'react'
 import { assetPath } from '../lib'
 import type { Project, Suit } from '../lib'
-import { SuitIcon } from './SuitIcon'
+import { SocialIcon, SuitIcon } from './SuitIcon'
 
 const rankLabels = ['A', 'K', 'Q', 'J']
 
@@ -51,7 +51,7 @@ export function ProjectCard({ project, index, label }: { project: Project; index
         <p className="project-detail">{project.detail}</p>
         <div className="project-bottom">
           <ul className="stack">{project.stack.map((item) => <li key={item}>{item}</li>)}</ul>
-          <a className="project-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`${label}: ${project.name}`}>↗</a>
+          <a className="project-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`${label}: ${project.name}`} title={label}><SocialIcon kind="github" /></a>
         </div>
       </div>
       {featured && <ProjectGallery images={project.images} />}

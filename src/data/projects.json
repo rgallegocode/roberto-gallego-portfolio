@@ -59,18 +59,33 @@
       "images": []
     },
     {
-      "name": "Cava Bot",
+      "name": "Cava Agent",
       "suit": "clubs",
-      "eyebrow": "Personal automation",
-      "description": "A daily Telegram financial briefing assembled from news, markets and an LLM.",
-      "detail": "A serverless-style scheduled pipeline using external APIs, Gemini and GitHub Actions secrets.",
+      "eyebrow": "AI agent · Live demo",
+      "description": "An autonomous financial-analyst agent that decides which tools to call and answers with real market data, in a chat or as a daily Telegram bulletin.",
+      "detail": "Rebuilt a fixed LLM pipeline as a smolagents ReAct agent with custom tools (Yahoo Finance, SMA50/SMA200 trend, news, weather) and a swappable LLM (Groq, Gemini). CI with pytest and ruff on three Python versions auto-deploys the demo to Hugging Face.",
       "stack": [
         "Python",
-        "Gemini API",
+        "smolagents",
+        "LLM agents",
+        "pytest",
         "GitHub Actions"
       ],
       "href": "https://github.com/rgallegocode/cava-bot",
-      "images": []
+      "images": [
+        {
+          "src": "projects/cava-bot/chat-answer.jpg",
+          "alt": "Chat answer: the agent classifies the S&P 500 as a bull market from its SMA50/SMA200 tool"
+        },
+        {
+          "src": "projects/cava-bot/agent-steps.jpg",
+          "alt": "Agent reasoning step: the Python code it wrote to call the market-trend tool"
+        },
+        {
+          "src": "projects/cava-bot/telegram-bulletin.jpg",
+          "alt": "Daily Telegram bulletin in Spanish with weather, 24h news and a bull/bear call"
+        }
+      ]
     }
   ],
   "es": [
@@ -133,18 +148,33 @@
       "images": []
     },
     {
-      "name": "Cava Bot",
+      "name": "Cava Agent",
       "suit": "clubs",
-      "eyebrow": "Automatización personal",
-      "description": "Boletín financiero diario para Telegram combinando noticias, mercados y un LLM.",
-      "detail": "Pipeline programado sin servidor dedicado usando APIs externas, Gemini y GitHub Actions.",
+      "eyebrow": "Agente de IA · Demo en directo",
+      "description": "Agente autónomo de análisis financiero que decide qué herramientas usar y responde con datos reales de mercado, en un chat o como boletín diario en Telegram.",
+      "detail": "Rehíce un pipeline fijo con LLM como agente ReAct de smolagents con herramientas propias (Yahoo Finance, tendencia SMA50/SMA200, noticias, tiempo) y LLM intercambiable (Groq, Gemini). CI con pytest y ruff en tres versiones de Python que despliega la demo en Hugging Face.",
       "stack": [
         "Python",
-        "Gemini API",
+        "smolagents",
+        "LLM agents",
+        "pytest",
         "GitHub Actions"
       ],
       "href": "https://github.com/rgallegocode/cava-bot",
-      "images": []
+      "images": [
+        {
+          "src": "projects/cava-bot/chat-answer.jpg",
+          "alt": "Respuesta del chat: el agente clasifica el S&P 500 como bull market con su herramienta SMA50/SMA200"
+        },
+        {
+          "src": "projects/cava-bot/agent-steps.jpg",
+          "alt": "Paso de razonamiento del agente: el código Python que escribe para llamar a la herramienta de tendencia"
+        },
+        {
+          "src": "projects/cava-bot/telegram-bulletin.jpg",
+          "alt": "Boletín diario de Telegram con el tiempo, noticias de 24h y la previsión bull/bear"
+        }
+      ]
     }
   ],
   "de": [
@@ -207,18 +237,33 @@
       "images": []
     },
     {
-      "name": "Cava Bot",
+      "name": "Cava Agent",
       "suit": "clubs",
-      "eyebrow": "Persönliche Automatisierung",
-      "description": "Tägliches Finanzbriefing für Telegram aus Nachrichten, Marktdaten und einem LLM.",
-      "detail": "Zeitgesteuerte Pipeline ohne eigenen Server mit externen APIs, Gemini und GitHub Actions.",
+      "eyebrow": "KI-Agent · Live-Demo",
+      "description": "Autonomer Finanzanalyse-Agent, der selbst entscheidet, welche Tools er nutzt, und mit echten Marktdaten antwortet, im Chat oder als tägliches Telegram-Briefing.",
+      "detail": "Eine feste LLM-Pipeline als ReAct-Agent mit smolagents neu gebaut: eigene Tools (Yahoo Finance, SMA50/SMA200-Trend, Nachrichten, Wetter) und austauschbares LLM (Groq, Gemini). CI mit pytest und ruff auf drei Python-Versionen deployt die Demo automatisch auf Hugging Face.",
       "stack": [
         "Python",
-        "Gemini API",
+        "smolagents",
+        "LLM agents",
+        "pytest",
         "GitHub Actions"
       ],
       "href": "https://github.com/rgallegocode/cava-bot",
-      "images": []
+      "images": [
+        {
+          "src": "projects/cava-bot/chat-answer.jpg",
+          "alt": "Chat-Antwort: Der Agent stuft den S&P 500 per SMA50/SMA200-Tool als Bullenmarkt ein"
+        },
+        {
+          "src": "projects/cava-bot/agent-steps.jpg",
+          "alt": "Denkschritt des Agenten: der Python-Code, den er für das Trend-Tool schreibt"
+        },
+        {
+          "src": "projects/cava-bot/telegram-bulletin.jpg",
+          "alt": "Tägliches Telegram-Briefing auf Spanisch mit Wetter, 24h-Nachrichten und Bull/Bear-Prognose"
+        }
+      ]
     }
   ]
 }

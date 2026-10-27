@@ -23,12 +23,10 @@ export function Hero({ t, language, onProjects }: { t: Copy; language: Language;
         <p className="hero-intro">{t.intro}</p>
         <div className="hero-actions">
           <button className="primary-button" onClick={onProjects}>{t.cta} <span aria-hidden="true">→</span></button>
-          <a className="text-link" href={`mailto:${profile.email}`}>{t.contact} <span aria-hidden="true">↗</span></a>
-        </div>
-        <div className="cv-actions">
           <a className="cv-link" href={cvHref(language)} target="_blank" rel="noreferrer">{t.cvView} <span aria-hidden="true">↗</span></a>
           <a className="cv-link cv-download" href={cvHref(language)} download={cvDownloadName(language)}>{t.cvDownload} <span aria-hidden="true">↓</span></a>
         </div>
+        <a className="text-link hero-contact" href={`mailto:${profile.email}`}>{t.contact} <span aria-hidden="true">↗</span></a>
       </div>
       <div className="hero-card-wrap">
         <div className="hero-card back-card" aria-hidden="true"><span>R</span></div>
