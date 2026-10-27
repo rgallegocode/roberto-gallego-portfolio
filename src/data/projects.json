@@ -3,7 +3,7 @@
     {
       "name": "Intelligent Game Validation",
       "suit": "spades",
-      "eyebrow": "Malackathon 2026 · 4th place",
+      "eyebrow": "Hackathon UMA 2026 · 4th place",
       "description": "Validates third-party casino games the way a player sees them, with no access to the game's DOM.",
       "detail": "Frame diffing, template matching and local OCR, cross-checked against the provider's network traffic. Betsson challenge, team of four.",
       "stack": [
@@ -92,7 +92,7 @@
     {
       "name": "Validación Inteligente de Juegos",
       "suit": "spades",
-      "eyebrow": "Malackathon 2026 · 4º puesto",
+      "eyebrow": "Hackathon UMA 2026 · 4º puesto",
       "description": "Valida juegos de casino de terceros tal y como los ve el jugador, sin acceso al DOM del juego.",
       "detail": "Diferencia de fotogramas, búsqueda por plantilla y OCR local, contrastados con el tráfico de red del proveedor. Reto de Betsson, equipo de cuatro.",
       "stack": [
@@ -181,7 +181,7 @@
     {
       "name": "Intelligente Spielvalidierung",
       "suit": "spades",
-      "eyebrow": "Malackathon 2026 · 4. Platz",
+      "eyebrow": "Hackathon UMA 2026 · 4. Platz",
       "description": "Validiert Casinospiele von Drittanbietern so, wie Spieler sie sehen, ohne Zugriff auf das DOM des Spiels.",
       "detail": "Frame-Differenzen, Template-Matching und lokales OCR, abgeglichen mit dem Netzwerkverkehr des Anbieters. Betsson-Challenge, Viererteam.",
       "stack": [
