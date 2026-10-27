@@ -74,16 +74,16 @@
       "href": "https://github.com/rgallegocode/cava-bot",
       "images": [
         {
+          "src": "projects/cava-bot/agent-steps.jpg",
+          "alt": "Agent reasoning step: the Python code it wrote to call the market-trend tool"
+        },
+        {
           "src": "projects/cava-bot/telegram-bulletin.jpg",
           "alt": "Daily Telegram bulletin in Spanish with weather, 24h news and a bull/bear call"
         },
         {
           "src": "projects/cava-bot/chat-answer.jpg",
           "alt": "Chat answer: the agent classifies the S&P 500 as a bull market from its SMA50/SMA200 tool"
-        },
-        {
-          "src": "projects/cava-bot/agent-steps.jpg",
-          "alt": "Agent reasoning step: the Python code it wrote to call the market-trend tool"
         }
       ]
     }
@@ -163,16 +163,16 @@
       "href": "https://github.com/rgallegocode/cava-bot",
       "images": [
         {
+          "src": "projects/cava-bot/agent-steps.jpg",
+          "alt": "Paso de razonamiento del agente: el código Python que escribe para llamar a la herramienta de tendencia"
+        },
+        {
           "src": "projects/cava-bot/telegram-bulletin.jpg",
           "alt": "Boletín diario de Telegram con el tiempo, noticias de 24h y la previsión bull/bear"
         },
         {
           "src": "projects/cava-bot/chat-answer.jpg",
           "alt": "Respuesta del chat: el agente clasifica el S&P 500 como bull market con su herramienta SMA50/SMA200"
-        },
-        {
-          "src": "projects/cava-bot/agent-steps.jpg",
-          "alt": "Paso de razonamiento del agente: el código Python que escribe para llamar a la herramienta de tendencia"
         }
       ]
     }
@@ -252,16 +252,16 @@
       "href": "https://github.com/rgallegocode/cava-bot",
       "images": [
         {
+          "src": "projects/cava-bot/agent-steps.jpg",
+          "alt": "Denkschritt des Agenten: der Python-Code, den er für das Trend-Tool schreibt"
+        },
+        {
           "src": "projects/cava-bot/telegram-bulletin.jpg",
           "alt": "Tägliches Telegram-Briefing auf Spanisch mit Wetter, 24h-Nachrichten und Bull/Bear-Prognose"
         },
         {
           "src": "projects/cava-bot/chat-answer.jpg",
           "alt": "Chat-Antwort: Der Agent stuft den S&P 500 per SMA50/SMA200-Tool als Bullenmarkt ein"
-        },
-        {
-          "src": "projects/cava-bot/agent-steps.jpg",
-          "alt": "Denkschritt des Agenten: der Python-Code, den er für das Trend-Tool schreibt"
         }
       ]
     }
