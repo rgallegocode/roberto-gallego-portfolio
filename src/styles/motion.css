@@ -7,6 +7,7 @@
   transition: opacity .6s ease var(--delay, 0ms), transform .8s var(--ease-deal) var(--delay, 0ms), box-shadow .35s ease, border-color .25s ease;
 }
 .js-reveal .timeline-card[data-reveal],
+.js-reveal .credential[data-reveal],
 .js-reveal .contact-card[data-reveal] {
   opacity: 0;
   transform: translateY(28px);
@@ -16,6 +17,8 @@
 /* once dealt, hover transitions must be immediate again */
 .js-reveal .project-card.is-visible,
 .js-reveal .skill-card.is-visible { transition: transform .35s var(--ease-deal), box-shadow .35s ease, border-color .25s ease; }
+.js-reveal .credential.is-visible { transition: transform .3s var(--ease-deal), border-color .25s ease; }
+.js-reveal .credential.is-visible:hover { transform: translateY(-4px); }
 .js-reveal .project-card.is-visible:hover { transform: translateY(-12px) rotate(-1deg); }
 .js-reveal .project-card-featured.is-visible:hover { transform: translateY(-6px); }
 .js-reveal .skill-card.is-visible:hover { transform: translateY(-6px) rotate(-1.2deg); }
@@ -28,6 +31,7 @@
   .js-reveal .project-card[data-reveal],
   .js-reveal .skill-card[data-reveal],
   .js-reveal .timeline-card[data-reveal],
+  .js-reveal .credential[data-reveal],
   .js-reveal .contact-card[data-reveal] { opacity: 1; transform: none; transition: none; }
   .project-card, .skill-card, .quote-card, .primary-button, .cv-link, .contact-chip,
   .topbar, .brand-card, .nav-suit, .table-rail i, .table-rail span { transition: none; }

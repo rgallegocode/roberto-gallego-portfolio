@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
-import { assetPath } from '../lib'
+import { assetPath, rankOf } from '../lib'
 import type { Project, Suit } from '../lib'
 import { SocialIcon, SuitIcon } from './SuitIcon'
 
@@ -36,13 +36,12 @@ function ProjectGallery({ images }: { images: Project['images'] }) {
 }
 
 export function ProjectCard({ project, index, label }: { project: Project; index: number; label: string }) {
-  const number = String(index + 1).padStart(2, '0')
   const featured = project.images.length > 0
   return (
     <article className={`project-card suit-${project.suit}${featured ? ' project-card-featured' : ''}`} data-reveal style={{ '--delay': `${index * 120}ms` } as CSSProperties}>
       <div className="project-body">
         <div className="card-topline">
-          <span className="project-index">{number}</span>
+          <span className="card-rank">{rankOf(index)}</span>
           <SuitIcon suit={project.suit} className="project-suit" />
         </div>
         <p className="card-eyebrow">{project.eyebrow}</p>
@@ -64,6 +63,7 @@ export function SkillCard({ suit, title, items, index }: { suit: Suit; title: st
   const rank = rankLabels[index % rankLabels.length]
   return (
     <article className={`skill-card suit-${suit}`} data-reveal style={{ '--delay': `${index * 90}ms` } as CSSProperties}>
+      <SuitIcon suit={suit} className="skill-watermark" />
       <span className="skill-corner" aria-hidden="true">{rank}<SuitIcon suit={suit} className={`suit suit-${suit}`} /></span>
       <h3 className="skill-title">{title}</h3>
       <ul className="skill-items">{list.map((item) => <li key={item}>{item}</li>)}</ul>
@@ -98,6 +98,30 @@ export function TimelineCard({ suit, title, detail, step, logo = null, href = nu
           <img className="timeline-logo-bottom" src={assetPath(logo)} width={272} height={75} loading="lazy" decoding="async" alt={title.split(' · ').pop() ?? ''} />
         </picture>
       )}
+    </li>
+  )
+}
+
+type CredentialProps = {
+  suit: Suit
+  kicker: string
+  title: string
+  detail: string
+  href: string | null
+  hrefLabel: string
+}
+
+export function CredentialChip({ suit, kicker, title, detail, href, hrefLabel }: CredentialProps) {
+  const linkedin = href?.includes('linkedin.com')
+  return (
+    <li className="credential" data-reveal>
+      <span className={`poker-chip suit-${suit}`} aria-hidden="true"><SuitIcon suit={suit} /></span>
+      <div className="credential-body">
+        <p className="credential-kicker">{kicker}</p>
+        <h3>{title}</h3>
+        {detail && <p>{detail}</p>}
+        {href && <a className="text-link credential-link" href={href} target="_blank" rel="noreferrer">{linkedin ? <><SocialIcon kind="linkedin" /> LinkedIn</> : hrefLabel} <span aria-hidden="true">↗</span></a>}
+      </div>
     </li>
   )
 }

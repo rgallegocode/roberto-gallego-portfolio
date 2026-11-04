@@ -43,9 +43,10 @@ export const cvDownloadName = (language: Language) => `Roberto-Gallego-CV-${lang
 // Do not edit those JSON files by hand.
 export const copy = copyData as Record<Language, (typeof copyData)['en']>
 export const projects = projectsData as Record<Language, Project[]>
-// projects with screenshots span the row, so they go first; the rest share the row below
-export const featuredFirst = (list: Project[]) =>
-  [...list].sort((a, b) => Number(b.images.length > 0) - Number(a.images.length > 0))
+// career-os generates them most important first; the home page deals the top ones, the deck shows them all
+export const homeProjectCount = 3
+const ranks = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
+export const rankOf = (index: number) => ranks[index % ranks.length]
 export const skills = skillsData as Record<Language, { suit: Suit; title: string; items: string }[]>
 export const timeline = timelineData as Record<Language, { suit: Suit; title: string; detail: string; logo: string | null }[]>
 export const credentials = credentialsData as Record<Language, {
@@ -83,9 +84,27 @@ export function numberedLabel(label: string, position: number) {
 export const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-/** Accessibility-only chrome strings that are not part of the generated content JSON. */
-export const uiStrings: Record<Language, { skip: string; menu: string; mainNav: string; home: string; tableNav: string }> = {
-  en: { skip: 'Skip to content', menu: 'Open menu', mainNav: 'Main navigation', home: 'Roberto Gallego Barbarán, back to top', tableNav: 'Section index' },
-  es: { skip: 'Saltar al contenido', menu: 'Abrir menú', mainNav: 'Navegación principal', home: 'Roberto Gallego Barbarán, volver arriba', tableNav: 'Índice de secciones' },
-  de: { skip: 'Zum Inhalt springen', menu: 'Menü öffnen', mainNav: 'Hauptnavigation', home: 'Roberto Gallego Barbarán, nach oben', tableNav: 'Abschnittsindex' },
+export type UiStrings = {
+  skip: string; menu: string; mainNav: string; home: string; tableNav: string
+  viewAll: string; deckTitle: string; close: string; searchLabel: string; searchPlaceholder: string; techLabel: string
+  moreTechs: string; fewerTechs: string; results: string; clear: string; noMatch: string
+}
+
+/** Interface strings that are not part of the generated content JSON. */
+export const uiStrings: Record<Language, UiStrings> = {
+  en: {
+    skip: 'Skip to content', menu: 'Open menu', mainNav: 'Main navigation', home: 'Roberto Gallego Barbarán, back to top', tableNav: 'Section index',
+    viewAll: 'See the whole deck', deckTitle: 'The whole deck', close: 'Close', searchLabel: 'Search by name', searchPlaceholder: 'Project name', techLabel: 'Filter by technology',
+    moreTechs: 'More', fewerTechs: 'Fewer', results: '{shown} of {total} cards', clear: 'Clear filters', noMatch: 'No card matches this hand.',
+  },
+  es: {
+    skip: 'Saltar al contenido', menu: 'Abrir menú', mainNav: 'Navegación principal', home: 'Roberto Gallego Barbarán, volver arriba', tableNav: 'Índice de secciones',
+    viewAll: 'Ver toda la baraja', deckTitle: 'Toda la baraja', close: 'Cerrar', searchLabel: 'Buscar por nombre', searchPlaceholder: 'Nombre del proyecto', techLabel: 'Filtrar por tecnología',
+    moreTechs: 'Más', fewerTechs: 'Menos', results: '{shown} de {total} cartas', clear: 'Quitar filtros', noMatch: 'Ninguna carta encaja con esta jugada.',
+  },
+  de: {
+    skip: 'Zum Inhalt springen', menu: 'Menü öffnen', mainNav: 'Hauptnavigation', home: 'Roberto Gallego Barbarán, nach oben', tableNav: 'Abschnittsindex',
+    viewAll: 'Das ganze Deck ansehen', deckTitle: 'Das ganze Deck', close: 'Schließen', searchLabel: 'Nach Name suchen', searchPlaceholder: 'Projektname', techLabel: 'Nach Technologie filtern',
+    moreTechs: 'Mehr', fewerTechs: 'Weniger', results: '{shown} von {total} Karten', clear: 'Filter entfernen', noMatch: 'Keine Karte passt zu diesem Blatt.',
+  },
 }

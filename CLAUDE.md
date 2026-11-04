@@ -9,6 +9,7 @@ El contenido **no se edita aquí**. Lo genera `career-os` (`~/Documents/GitHub/c
 - `src/data/*.json` y `public/cv-{en,es,de}.pdf` son **generados**: nunca los edites a mano, el siguiente render los
   sobrescribe. Cambia `career-os/data/` y ejecuta, desde `career-os`:
   `.venv/bin/career validate && .venv/bin/career render all --publish` (genera siempre los 3 CVs).
+- Orden de proyectos y credenciales: campo `importance` en `career-os/data/`.
 - Imágenes de un proyecto: `public/projects/<id>/` (`.jpg` + `.webp` con el mismo nombre), declaradas en
   `images:` del proyecto en `career-os/data/projects.yaml`.
 

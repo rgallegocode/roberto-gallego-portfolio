@@ -9,6 +9,8 @@ const readData = (name: string) => JSON.parse(readFileSync(new URL(`../src/data/
 
 type Project = { name: string; description: string; stack: string[]; href: string; images: { src: string; alt: string }[] }
 
+export const homeProjectCount = 3
+
 export const copy: Record<Language, { title: string; nav: string[] }> = readData('copy')
 export const projects: Record<Language, Project[]> = readData('projects')
 export const skills: Record<Language, { title: string }[]> = readData('skills')
@@ -40,4 +42,9 @@ export async function loadAllImages(page: Page) {
           image.addEventListener('error', resolve, { once: true })
         })))
   })
+}
+
+export async function openDeck(page: Page) {
+  await page.locator('.deck-button').click()
+  await page.locator('.deck-dialog[open]').waitFor()
 }

@@ -1,16 +1,27 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
-import { credentials, languages, loadAllImages, openIn, projects, skills, timeline } from './helpers'
+import { credentials, homeProjectCount, languages, loadAllImages, openDeck, openIn, projects, skills, timeline } from './helpers'
 
 for (const language of languages) {
   test.describe(language, () => {
     test.beforeEach(async ({ page }) => { await openIn(page, language) })
 
-    test('shows every project with its text, stack and link', async ({ page }) => {
-      await expect(page.locator('.project-card')).toHaveCount(projects[language].length)
-      for (const project of projects[language]) {
+    test('deals the most important projects, in order', async ({ page }) => {
+      const best = projects[language].slice(0, homeProjectCount)
+      await expect(page.locator('.project-card h3')).toHaveText(best.map((project) => project.name))
+      for (const project of best) {
         const card = page.locator('.project-card').filter({ has: page.getByRole('heading', { name: project.name, exact: true }) })
-        await expect(card).toHaveCount(1)
+        await expect(card.locator('.project-description')).toHaveText(project.description)
+        await expect(card.locator('.stack li')).toHaveText(project.stack)
+        await expect(card.locator('a.project-link')).toHaveAttribute('href', project.href)
+      }
+    })
+
+    test('the deck shows every project with its text, stack and link', async ({ page }) => {
+      await openDeck(page)
+      await expect(page.locator('.deck-card h3')).toHaveText(projects[language].map((project) => project.name))
+      for (const project of projects[language]) {
+        const card = page.locator('.deck-card').filter({ has: page.getByRole('heading', { name: project.name, exact: true }) })
         await expect(card.locator('.project-description')).toHaveText(project.description)
         await expect(card.locator('.stack li')).toHaveText(project.stack)
         await expect(card.locator('a.project-link')).toHaveAttribute('href', project.href)
@@ -21,7 +32,7 @@ for (const language of languages) {
       await expect(page.locator('.skill-card')).toHaveCount(skills[language].length)
       await expect(page.locator('.journey-section .timeline-card')).toHaveCount(timeline[language].length)
       const total = credentials[language].certifications.length + credentials[language].achievements.length
-      await expect(page.locator('.credentials-section .timeline-card')).toHaveCount(total)
+      await expect(page.locator('.credential')).toHaveCount(total)
     })
 
     test('every image loads', async ({ page }) => {
@@ -68,6 +79,16 @@ for (const language of languages) {
         await page.setViewportSize(viewport)
         await loadAllImages(page)
         const { violations } = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()
+        const serious = violations
+          .filter((violation) => violation.impact === 'serious' || violation.impact === 'critical')
+          .flatMap((violation) => violation.nodes.map((node) => `${violation.id}: ${node.target.join(' ')}`))
+        expect(serious).toEqual([])
+      })
+
+      test(`no serious accessibility problems in the deck on ${device}`, async ({ page }) => {
+        await page.setViewportSize(viewport)
+        await openDeck(page)
+        const { violations } = await new AxeBuilder({ page }).include('.deck-dialog').withTags(['wcag2a', 'wcag2aa']).analyze()
         const serious = violations
           .filter((violation) => violation.impact === 'serious' || violation.impact === 'critical')
           .flatMap((violation) => violation.nodes.map((node) => `${violation.id}: ${node.target.join(' ')}`))

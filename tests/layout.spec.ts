@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { languages, loadAllImages, openIn } from './helpers'
+import { languages, loadAllImages, openDeck, openIn } from './helpers'
 
 const widths = [360, 768, 1024, 1440, 1920]
 
@@ -22,7 +22,7 @@ for (const width of widths) {
       test('content stays inside the screen', async ({ page }) => {
         const offenders = await page.evaluate(() => {
           const limit = document.documentElement.clientWidth
-          return Array.from(document.querySelectorAll<HTMLElement>('header *, main *, footer *'))
+          return Array.from(document.querySelectorAll<HTMLElement>('header *, main *, footer *, .deck-dialog *'))
             .filter((el) => !el.closest('[aria-hidden="true"]') && el.checkVisibility({ opacityProperty: true, visibilityProperty: true }))
             .filter((el) => {
               const box = el.getBoundingClientRect()
@@ -51,7 +51,7 @@ for (const width of widths) {
 
       test('card content stays inside its card', async ({ page }) => {
         const offenders = await page.evaluate(() => {
-          const cards = document.querySelectorAll('.project-card, .skill-card, .timeline-card, .contact-card, .quote-card')
+          const cards = document.querySelectorAll('.project-card, .skill-card, .timeline-card, .contact-card, .quote-card, .credential')
           return Array.from(cards).flatMap((card) => {
             const outer = card.getBoundingClientRect()
             return Array.from(card.querySelectorAll<HTMLElement>('*'))
@@ -69,7 +69,7 @@ for (const width of widths) {
       test('blocks do not overlap each other', async ({ page }) => {
         const overlaps = await page.evaluate(() => {
           const groups = [
-            '.project-grid > *', '.skills-grid > *', '.journey-section .timeline > *', '.credentials-section .timeline > *',
+            '.project-grid > *', '.skills-grid > *', '.journey-section .timeline > *', '.credential-tray > *',
             '.topbar > .brand-lockup, .topbar > nav, .topbar > .topbar-tools',
           ]
           const hits: string[] = []
@@ -85,6 +85,35 @@ for (const width of widths) {
           return hits
         })
         expect(overlaps).toEqual([])
+      })
+
+      test('the deck fits the screen, with nothing cut off or overlapping', async ({ page }) => {
+        await openDeck(page)
+        const problems = await page.evaluate(() => {
+          const limit = document.documentElement.clientWidth
+          const dialog = document.querySelector('.deck-dialog')!.getBoundingClientRect()
+          const visible = (el: HTMLElement) => !el.closest('[aria-hidden="true"]') && el.checkVisibility()
+          const hits: string[] = []
+          if (dialog.left < 0 || dialog.right > limit || dialog.top < 0 || dialog.bottom > innerHeight) hits.push('dialog outside the screen')
+          const scroller = document.querySelector('.deck-scroll')!
+          if (scroller.scrollWidth > scroller.clientWidth) hits.push('deck scrolls sideways')
+          document.querySelectorAll<HTMLElement>('.deck-dialog *').forEach((el) => {
+            const box = el.getBoundingClientRect()
+            if (visible(el) && box.width > 0 && (box.left < dialog.left - 1 || box.right > dialog.right + 1)) hits.push(`outside: ${el.tagName}.${el.className}`)
+          })
+          document.querySelectorAll<HTMLElement>('.deck-dialog h2, .deck-dialog h3, .deck-dialog p, .deck-dialog button, .deck-card li').forEach((el) => {
+            if (visible(el) && getComputedStyle(el).display !== 'inline' && el.scrollWidth > el.clientWidth + 1) hits.push(`spills: ${el.tagName} "${el.textContent?.slice(0, 30)}"`)
+          })
+          document.querySelectorAll<HTMLElement>('.deck-card').forEach((card) => {
+            const outer = card.getBoundingClientRect()
+            card.querySelectorAll<HTMLElement>('*').forEach((el) => {
+              const box = el.getBoundingClientRect()
+              if (visible(el) && box.width > 0 && (box.left < outer.left - 1 || box.right > outer.right + 1 || box.bottom > outer.bottom + 1)) hits.push(`out of card: ${el.tagName}.${el.className}`)
+            })
+          })
+          return hits
+        })
+        expect(problems).toEqual([])
       })
 
       test('navigation is reachable', async ({ page }) => {

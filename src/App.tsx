@@ -1,23 +1,26 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  copy, credentials, featuredFirst, initialLanguage, numberedLabel, prefersReducedMotion, profile, projects, skills, storeLanguage, timeline, uiStrings,
+  copy, credentials, homeProjectCount, initialLanguage, numberedLabel, prefersReducedMotion, profile, projects, skills, storeLanguage, timeline, uiStrings,
 } from './lib'
 import type { Language } from './lib'
 import { useActiveSection, useReveal } from './hooks'
 import { Topbar } from './components/Topbar'
 import type { NavItem } from './components/Topbar'
 import { Hero } from './components/Hero'
-import { ProjectCard, SkillCard, TimelineCard } from './components/Cards'
+import { CredentialChip, ProjectCard, SkillCard, TimelineCard } from './components/Cards'
+import { ProjectDeck } from './components/ProjectDeck'
 import { SocialIcon, SuitIcon } from './components/SuitIcon'
 import { cvDownloadName, cvHref } from './lib'
 
 function App() {
   const [language, setLanguage] = useState<Language>(initialLanguage)
   const [isCompactHeader, setIsCompactHeader] = useState(false)
+  const [isDeckOpen, setIsDeckOpen] = useState(false)
   const progressRef = useRef<HTMLDivElement>(null)
   const t = copy[language]
   const ui = uiStrings[language]
   const cred = credentials[language]
+  const allProjects = projects[language]
   const hasCredentials = cred.certifications.length + cred.achievements.length > 0
 
   const sectionIds = hasCredentials
@@ -106,13 +109,20 @@ function App() {
           <div className="section-heading"><p className="section-label">{label('about', t.aboutLabel)}</p><h2 id="about-title">{t.aboutTitle}</h2></div>
           <div className="about-grid">
             <p className="large-copy">{t.aboutText}</p>
-            <aside className="quote-card"><span className="quote-mark" aria-hidden="true">“</span><p>{t.aboutNote}</p><SuitIcon suit="clubs" className="quote-suit suit-clubs" /></aside>
+            <aside className="quote-card"><span className="joker-corner" aria-hidden="true">JOKER</span><p>{t.aboutNote}</p><SuitIcon suit="clubs" className="quote-suit suit-clubs" /></aside>
           </div>
         </section>
 
         <section className="section" id="projects" aria-labelledby="projects-title">
           <div className="section-heading"><p className="section-label">{label('projects', t.projectsLabel)}</p><h2 id="projects-title">{t.projectsTitle}</h2></div>
-          <div className="project-grid">{featuredFirst(projects[language]).map((project, index) => <ProjectCard key={project.href} project={project} index={index} label={t.viewGithub} />)}</div>
+          <div className="table-felt">
+            <div className="project-grid">{allProjects.slice(0, homeProjectCount).map((project, index) => <ProjectCard key={project.href} project={project} index={index} label={t.viewGithub} />)}</div>
+            {allProjects.length > homeProjectCount && (
+              <div className="table-foot">
+                <button type="button" className="deck-button" onClick={() => setIsDeckOpen(true)}>{ui.viewAll} <span className="deck-count">{allProjects.length}</span></button>
+              </div>
+            )}
+          </div>
         </section>
 
         <section className="section skills-section" id="skills" aria-labelledby="skills-title">
@@ -131,10 +141,10 @@ function App() {
         {hasCredentials && (
           <section className="section credentials-section" id="credentials" aria-labelledby="credentials-title">
             <div className="section-heading"><p className="section-label">{label('credentials', t.credentialsLabel)}</p><h2 id="credentials-title">{t.credentialsTitle}</h2></div>
-            <ol className="timeline">
-              {cred.certifications.map((item, index) => <TimelineCard key={`c-${index}`} step={index + 1} suit={item.suit} title={item.name} detail={`${t.certificationsHeading} · ${item.issuer} · ${item.date}`} href={item.url} hrefLabel={t.credentialLink} />)}
-              {cred.achievements.map((item, index) => <TimelineCard key={`a-${index}`} step={cred.certifications.length + index + 1} suit={item.suit} title={item.title} detail={`${t.achievementsHeading} · ${item.date} · ${item.description}`} href={item.url} hrefLabel={t.credentialLink} />)}
-            </ol>
+            <ul className="credential-tray">
+              {cred.certifications.map((item) => <CredentialChip key={item.name} suit={item.suit} kicker={`${t.certificationsHeading} · ${item.date}`} title={item.name} detail={item.issuer} href={item.url} hrefLabel={t.credentialLink} />)}
+              {cred.achievements.map((item) => <CredentialChip key={item.title} suit={item.suit} kicker={`${t.achievementsHeading} · ${item.date}`} title={item.title} detail={item.description} href={item.url} hrefLabel={t.credentialLink} />)}
+            </ul>
           </section>
         )}
 
@@ -165,6 +175,8 @@ function App() {
           <a href={`mailto:${profile.email}`}>{t.email} ↗</a>
         </div>
       </footer>
+
+      {isDeckOpen && <ProjectDeck projects={allProjects} labels={ui} githubLabel={t.viewGithub} onClose={() => setIsDeckOpen(false)} />}
     </div>
   )
 }

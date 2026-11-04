@@ -1,6 +1,35 @@
 {
   "en": [
     {
+      "name": "Cava Agent",
+      "suit": "clubs",
+      "eyebrow": "AI agent · Live demo",
+      "description": "An autonomous financial-analyst agent that decides which tools to call and answers with real market data, in a chat or as a daily Telegram bulletin.",
+      "detail": "Rebuilt a fixed LLM pipeline as a smolagents ReAct agent with custom tools (Yahoo Finance, SMA50/SMA200 trend, news, weather) and a swappable LLM (Groq, Gemini). CI with pytest and ruff on three Python versions auto-deploys the demo to Hugging Face.",
+      "stack": [
+        "Python",
+        "smolagents",
+        "LLM agents",
+        "pytest",
+        "GitHub Actions"
+      ],
+      "href": "https://github.com/rgallegocode/cava-bot",
+      "images": [
+        {
+          "src": "projects/cava-bot/agent-steps.jpg",
+          "alt": "Agent reasoning step: the Python code it wrote to call the market-trend tool"
+        },
+        {
+          "src": "projects/cava-bot/telegram-bulletin.jpg",
+          "alt": "Daily Telegram bulletin in Spanish with weather, 24h news and a bull/bear call"
+        },
+        {
+          "src": "projects/cava-bot/chat-answer.jpg",
+          "alt": "Chat answer: the agent classifies the S&P 500 as a bull market from its SMA50/SMA200 tool"
+        }
+      ]
+    },
+    {
       "name": "Intelligent Game Validation",
       "suit": "spades",
       "eyebrow": "Hackathon UMA 2026 · 4th place",
@@ -29,21 +58,6 @@
       ]
     },
     {
-      "name": "Bancosol Campaigns",
-      "suit": "hearts",
-      "eyebrow": "Team web application",
-      "description": "A food-collection campaign platform with a role-aware Captain module.",
-      "detail": "Layered Spring MVC architecture with authenticated-user filtering, JWT access control and MariaDB persistence.",
-      "stack": [
-        "Java 17",
-        "Spring Boot",
-        "JPA",
-        "JWT"
-      ],
-      "href": "https://github.com/rgallegocode/Bancosol",
-      "images": []
-    },
-    {
       "name": "Canton Daml IOBuilders UMA",
       "suit": "diamonds",
       "eyebrow": "Distributed systems",
@@ -59,11 +73,28 @@
       "images": []
     },
     {
+      "name": "Bancosol Campaigns",
+      "suit": "hearts",
+      "eyebrow": "Team web application",
+      "description": "A food-collection campaign platform with a role-aware Captain module.",
+      "detail": "Layered Spring MVC architecture with authenticated-user filtering, JWT access control and MariaDB persistence.",
+      "stack": [
+        "Java 17",
+        "Spring Boot",
+        "JPA",
+        "JWT"
+      ],
+      "href": "https://github.com/rgallegocode/Bancosol",
+      "images": []
+    }
+  ],
+  "es": [
+    {
       "name": "Cava Agent",
       "suit": "clubs",
-      "eyebrow": "AI agent · Live demo",
-      "description": "An autonomous financial-analyst agent that decides which tools to call and answers with real market data, in a chat or as a daily Telegram bulletin.",
-      "detail": "Rebuilt a fixed LLM pipeline as a smolagents ReAct agent with custom tools (Yahoo Finance, SMA50/SMA200 trend, news, weather) and a swappable LLM (Groq, Gemini). CI with pytest and ruff on three Python versions auto-deploys the demo to Hugging Face.",
+      "eyebrow": "Agente de IA · Demo en directo",
+      "description": "Agente autónomo de análisis financiero que decide qué herramientas usar y responde con datos reales de mercado, en un chat o como boletín diario en Telegram.",
+      "detail": "Rehíce un pipeline fijo con LLM como agente ReAct de smolagents con herramientas propias (Yahoo Finance, tendencia SMA50/SMA200, noticias, tiempo) y LLM intercambiable (Groq, Gemini). CI con pytest y ruff en tres versiones de Python que despliega la demo en Hugging Face.",
       "stack": [
         "Python",
         "smolagents",
@@ -75,20 +106,18 @@
       "images": [
         {
           "src": "projects/cava-bot/agent-steps.jpg",
-          "alt": "Agent reasoning step: the Python code it wrote to call the market-trend tool"
+          "alt": "Paso de razonamiento del agente: el código Python que escribe para llamar a la herramienta de tendencia"
         },
         {
           "src": "projects/cava-bot/telegram-bulletin.jpg",
-          "alt": "Daily Telegram bulletin in Spanish with weather, 24h news and a bull/bear call"
+          "alt": "Boletín diario de Telegram con el tiempo, noticias de 24h y la previsión bull/bear"
         },
         {
           "src": "projects/cava-bot/chat-answer.jpg",
-          "alt": "Chat answer: the agent classifies the S&P 500 as a bull market from its SMA50/SMA200 tool"
+          "alt": "Respuesta del chat: el agente clasifica el S&P 500 como bull market con su herramienta SMA50/SMA200"
         }
       ]
-    }
-  ],
-  "es": [
+    },
     {
       "name": "Validación Inteligente de Juegos",
       "suit": "spades",
@@ -118,21 +147,6 @@
       ]
     },
     {
-      "name": "Bancosol Campañas",
-      "suit": "hearts",
-      "eyebrow": "Aplicación web en equipo",
-      "description": "Plataforma de campañas de recogida de alimentos con un módulo específico para capitanes.",
-      "detail": "Arquitectura Spring MVC por capas, filtrado por usuario autenticado, control JWT y persistencia MariaDB.",
-      "stack": [
-        "Java 17",
-        "Spring Boot",
-        "JPA",
-        "JWT"
-      ],
-      "href": "https://github.com/rgallegocode/Bancosol",
-      "images": []
-    },
-    {
       "name": "Canton Daml IOBuilders UMA",
       "suit": "diamonds",
       "eyebrow": "Sistemas distribuidos",
@@ -148,11 +162,28 @@
       "images": []
     },
     {
+      "name": "Bancosol Campañas",
+      "suit": "hearts",
+      "eyebrow": "Aplicación web en equipo",
+      "description": "Plataforma de campañas de recogida de alimentos con un módulo específico para capitanes.",
+      "detail": "Arquitectura Spring MVC por capas, filtrado por usuario autenticado, control JWT y persistencia MariaDB.",
+      "stack": [
+        "Java 17",
+        "Spring Boot",
+        "JPA",
+        "JWT"
+      ],
+      "href": "https://github.com/rgallegocode/Bancosol",
+      "images": []
+    }
+  ],
+  "de": [
+    {
       "name": "Cava Agent",
       "suit": "clubs",
-      "eyebrow": "Agente de IA · Demo en directo",
-      "description": "Agente autónomo de análisis financiero que decide qué herramientas usar y responde con datos reales de mercado, en un chat o como boletín diario en Telegram.",
-      "detail": "Rehíce un pipeline fijo con LLM como agente ReAct de smolagents con herramientas propias (Yahoo Finance, tendencia SMA50/SMA200, noticias, tiempo) y LLM intercambiable (Groq, Gemini). CI con pytest y ruff en tres versiones de Python que despliega la demo en Hugging Face.",
+      "eyebrow": "KI-Agent · Live-Demo",
+      "description": "Autonomer Finanzanalyse-Agent, der selbst entscheidet, welche Tools er nutzt, und mit echten Marktdaten antwortet, im Chat oder als tägliches Telegram-Briefing.",
+      "detail": "Eine feste LLM-Pipeline als ReAct-Agent mit smolagents neu gebaut: eigene Tools (Yahoo Finance, SMA50/SMA200-Trend, Nachrichten, Wetter) und austauschbares LLM (Groq, Gemini). CI mit pytest und ruff auf drei Python-Versionen deployt die Demo automatisch auf Hugging Face.",
       "stack": [
         "Python",
         "smolagents",
@@ -164,20 +195,18 @@
       "images": [
         {
           "src": "projects/cava-bot/agent-steps.jpg",
-          "alt": "Paso de razonamiento del agente: el código Python que escribe para llamar a la herramienta de tendencia"
+          "alt": "Denkschritt des Agenten: der Python-Code, den er für das Trend-Tool schreibt"
         },
         {
           "src": "projects/cava-bot/telegram-bulletin.jpg",
-          "alt": "Boletín diario de Telegram con el tiempo, noticias de 24h y la previsión bull/bear"
+          "alt": "Tägliches Telegram-Briefing auf Spanisch mit Wetter, 24h-Nachrichten und Bull/Bear-Prognose"
         },
         {
           "src": "projects/cava-bot/chat-answer.jpg",
-          "alt": "Respuesta del chat: el agente clasifica el S&P 500 como bull market con su herramienta SMA50/SMA200"
+          "alt": "Chat-Antwort: Der Agent stuft den S&P 500 per SMA50/SMA200-Tool als Bullenmarkt ein"
         }
       ]
-    }
-  ],
-  "de": [
+    },
     {
       "name": "Intelligente Spielvalidierung",
       "suit": "spades",
@@ -207,21 +236,6 @@
       ]
     },
     {
-      "name": "Bancosol-Kampagnen",
-      "suit": "hearts",
-      "eyebrow": "Team-Webanwendung",
-      "description": "Plattform für Lebensmittel-Sammelaktionen mit einem rollenbasierten Kapitänsmodul.",
-      "detail": "Schichtenarchitektur mit Spring MVC, Benutzerfilterung, JWT-Zugriffskontrolle und MariaDB.",
-      "stack": [
-        "Java 17",
-        "Spring Boot",
-        "JPA",
-        "JWT"
-      ],
-      "href": "https://github.com/rgallegocode/Bancosol",
-      "images": []
-    },
-    {
       "name": "Canton Daml IOBuilders UMA",
       "suit": "diamonds",
       "eyebrow": "Verteilte Systeme",
@@ -237,33 +251,19 @@
       "images": []
     },
     {
-      "name": "Cava Agent",
-      "suit": "clubs",
-      "eyebrow": "KI-Agent · Live-Demo",
-      "description": "Autonomer Finanzanalyse-Agent, der selbst entscheidet, welche Tools er nutzt, und mit echten Marktdaten antwortet, im Chat oder als tägliches Telegram-Briefing.",
-      "detail": "Eine feste LLM-Pipeline als ReAct-Agent mit smolagents neu gebaut: eigene Tools (Yahoo Finance, SMA50/SMA200-Trend, Nachrichten, Wetter) und austauschbares LLM (Groq, Gemini). CI mit pytest und ruff auf drei Python-Versionen deployt die Demo automatisch auf Hugging Face.",
+      "name": "Bancosol-Kampagnen",
+      "suit": "hearts",
+      "eyebrow": "Team-Webanwendung",
+      "description": "Plattform für Lebensmittel-Sammelaktionen mit einem rollenbasierten Kapitänsmodul.",
+      "detail": "Schichtenarchitektur mit Spring MVC, Benutzerfilterung, JWT-Zugriffskontrolle und MariaDB.",
       "stack": [
-        "Python",
-        "smolagents",
-        "LLM agents",
-        "pytest",
-        "GitHub Actions"
+        "Java 17",
+        "Spring Boot",
+        "JPA",
+        "JWT"
       ],
-      "href": "https://github.com/rgallegocode/cava-bot",
-      "images": [
-        {
-          "src": "projects/cava-bot/agent-steps.jpg",
-          "alt": "Denkschritt des Agenten: der Python-Code, den er für das Trend-Tool schreibt"
-        },
-        {
-          "src": "projects/cava-bot/telegram-bulletin.jpg",
-          "alt": "Tägliches Telegram-Briefing auf Spanisch mit Wetter, 24h-Nachrichten und Bull/Bear-Prognose"
-        },
-        {
-          "src": "projects/cava-bot/chat-answer.jpg",
-          "alt": "Chat-Antwort: Der Agent stuft den S&P 500 per SMA50/SMA200-Tool als Bullenmarkt ein"
-        }
-      ]
+      "href": "https://github.com/rgallegocode/Bancosol",
+      "images": []
     }
   ]
 }

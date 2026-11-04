@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { copy, languages, loadAllImages, openIn, projects } from './helpers'
+import { copy, homeProjectCount, languages, loadAllImages, openDeck, openIn, projects } from './helpers'
 
 const sectionsOnScreen = async (page: import('@playwright/test').Page, id: string) => {
   await expect(async () => {
@@ -72,7 +72,7 @@ test.describe('desktop', () => {
   test('gallery thumbnails switch the main screenshot', async ({ page }) => {
     await openIn(page, 'en')
     const galleries = page.locator('.project-gallery')
-    expect(await galleries.count()).toBe(projects.en.filter((project) => project.images.length > 0).length)
+    expect(await galleries.count()).toBe(projects.en.slice(0, homeProjectCount).filter((project) => project.images.length > 0).length)
 
     for (let g = 0; g < await galleries.count(); g++) {
       const gallery = galleries.nth(g)
@@ -96,6 +96,89 @@ test.describe('desktop', () => {
       await page.reload()
       await expect(page.locator('html')).toHaveAttribute('lang', language)
     }
+  })
+})
+
+test.describe('the whole deck', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+
+  const names = (list: typeof projects.en) => list.map((project) => project.name)
+
+  test('searches by name, ignoring case and accents', async ({ page }) => {
+    await openIn(page, 'es')
+    await openDeck(page)
+    const target = projects.es[projects.es.length - 1].name
+    const typed = target.normalize('NFD').replace(/\p{M}/gu, '').toUpperCase()
+    await page.getByRole('searchbox').fill(typed)
+    await expect(page.locator('.deck-card h3')).toHaveText([target])
+    await expect(page.getByRole('status')).toContainText(`1 de ${projects.es.length}`)
+  })
+
+  test('filters by technology, and technologies combine', async ({ page }) => {
+    await openIn(page, 'en')
+    await openDeck(page)
+    if (await page.locator('.tech-more').count()) await page.locator('.tech-more').click()
+    const [first, ...others] = projects.en[0].stack
+    await page.locator('.tech-chip', { hasText: first }).first().click()
+    let wanted = projects.en.filter((project) => project.stack.includes(first))
+    await expect(page.locator('.deck-card h3')).toHaveText(names(wanted))
+
+    if (others.length > 0) {
+      await page.locator('.tech-chip', { hasText: others[0] }).first().click()
+      wanted = wanted.filter((project) => project.stack.includes(others[0]))
+      await expect(page.locator('.deck-card h3')).toHaveText(names(wanted))
+    }
+
+    await page.getByRole('button', { name: 'Clear filters' }).click()
+    await expect(page.locator('.deck-card')).toHaveCount(projects.en.length)
+    await expect(page.locator('.tech-chip[aria-pressed="true"]')).toHaveCount(0)
+  })
+
+  test('offers every technology with its project count', async ({ page }) => {
+    await openIn(page, 'en')
+    await openDeck(page)
+    if (await page.locator('.tech-more').count()) await page.locator('.tech-more').click()
+    const all = new Set(projects.en.flatMap((project) => project.stack))
+    await expect(page.locator('.tech-chip')).toHaveCount(all.size)
+    for (const tech of all) {
+      const total = projects.en.filter((project) => project.stack.includes(tech)).length
+      await expect(page.locator('.tech-chip').filter({ hasText: new RegExp(`^${tech.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&')} ${total}$`) })).toHaveCount(1)
+    }
+  })
+
+  test('says so when nothing matches', async ({ page }) => {
+    await openIn(page, 'en')
+    await openDeck(page)
+    await page.getByRole('searchbox').fill('zzz no such project')
+    await expect(page.locator('.deck-card')).toHaveCount(0)
+    await expect(page.locator('.deck-empty')).toBeVisible()
+  })
+
+  test('closes with the button, Escape and the backdrop, returning focus', async ({ page }) => {
+    await openIn(page, 'en')
+    const opener = page.locator('.deck-button')
+    const dialog = page.locator('.deck-dialog')
+
+    await openDeck(page)
+    await page.getByRole('button', { name: 'Close' }).click()
+    await expect(dialog).toHaveCount(0)
+    await expect(opener).toBeFocused()
+
+    await openDeck(page)
+    await page.keyboard.press('Escape')
+    await expect(dialog).toHaveCount(0)
+    await expect(opener).toBeFocused()
+
+    await openDeck(page)
+    await page.mouse.click(4, 450)
+    await expect(dialog).toHaveCount(0)
+  })
+
+  test('clicks inside the deck do not close it', async ({ page }) => {
+    await openIn(page, 'en')
+    await openDeck(page)
+    await page.locator('.deck-header h2').click()
+    await expect(page.locator('.deck-dialog[open]')).toHaveCount(1)
   })
 })
 
