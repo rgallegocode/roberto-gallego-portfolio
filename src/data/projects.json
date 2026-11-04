@@ -44,15 +44,15 @@
       "href": "https://github.com/saalma4/Malakathon-26",
       "images": [
         {
-          "src": "projects/malackathon/validator-pass.jpg",
+          "src": "projects/malackathon-game-validation/validator-pass.jpg",
           "alt": "Validator web UI after a real spin on Sweet Bonanza, with all 6 checks passing"
         },
         {
-          "src": "projects/malackathon/validator-forced-failure.jpg",
+          "src": "projects/malackathon-game-validation/validator-forced-failure.jpg",
           "alt": "Forced-failure demo showing failed checks with expected versus observed values"
         },
         {
-          "src": "projects/malackathon/validator-report.jpg",
+          "src": "projects/malackathon-game-validation/validator-report.jpg",
           "alt": "Self-contained HTML report with the checks, session video and step log"
         }
       ]
@@ -133,15 +133,15 @@
       "href": "https://github.com/saalma4/Malakathon-26",
       "images": [
         {
-          "src": "projects/malackathon/validator-pass.jpg",
+          "src": "projects/malackathon-game-validation/validator-pass.jpg",
           "alt": "Interfaz del validador tras un giro real en Sweet Bonanza, con las 6 comprobaciones correctas"
         },
         {
-          "src": "projects/malackathon/validator-forced-failure.jpg",
+          "src": "projects/malackathon-game-validation/validator-forced-failure.jpg",
           "alt": "Demo de fallos forzados con las comprobaciones fallidas, valor esperado frente a observado"
         },
         {
-          "src": "projects/malackathon/validator-report.jpg",
+          "src": "projects/malackathon-game-validation/validator-report.jpg",
           "alt": "Informe HTML autónomo con las comprobaciones, el vídeo de la sesión y los pasos"
         }
       ]
@@ -222,15 +222,15 @@
       "href": "https://github.com/saalma4/Malakathon-26",
       "images": [
         {
-          "src": "projects/malackathon/validator-pass.jpg",
+          "src": "projects/malackathon-game-validation/validator-pass.jpg",
           "alt": "Weboberfläche des Validators nach einem echten Spin in Sweet Bonanza, alle 6 Prüfungen bestanden"
         },
         {
-          "src": "projects/malackathon/validator-forced-failure.jpg",
+          "src": "projects/malackathon-game-validation/validator-forced-failure.jpg",
           "alt": "Demo mit erzwungenen Fehlern, fehlgeschlagene Prüfungen mit erwartetem und beobachtetem Wert"
         },
         {
-          "src": "projects/malackathon/validator-report.jpg",
+          "src": "projects/malackathon-game-validation/validator-report.jpg",
           "alt": "Eigenständiger HTML-Bericht mit Prüfungen, Sitzungsvideo und Schrittprotokoll"
         }
       ]

@@ -42,16 +42,17 @@ for (const language of languages) {
     })
 
     test('the CV links serve a real PDF', async ({ page, request }) => {
+      const cvLanguage = language === 'es' ? 'es' : 'en'
       const links = page.locator('.hero .cv-link')
       await expect(links).toHaveCount(2)
       for (let i = 0; i < 2; i++) {
         const href = (await links.nth(i).getAttribute('href'))!
-        expect(href).toContain(`cv-${language}.pdf`)
+        expect(href).toContain(`cv-${cvLanguage}.pdf`)
         const response = await request.get(href)
         expect(response.status()).toBe(200)
         expect((await response.body()).subarray(0, 5).toString()).toBe('%PDF-')
       }
-      await expect(links.nth(1)).toHaveAttribute('download', `Roberto-Gallego-CV-${language}.pdf`)
+      await expect(links.nth(1)).toHaveAttribute('download', `Roberto-Gallego-CV-${cvLanguage}.pdf`)
     })
 
     test('document structure and links are sound', async ({ page }) => {

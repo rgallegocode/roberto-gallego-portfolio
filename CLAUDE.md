@@ -5,17 +5,16 @@ Idioma de trabajo con el usuario: español.
 
 ## De dónde sale el contenido
 El contenido **no se edita aquí**. Lo genera `career-os` (`~/Documents/GitHub/career-os`), cuya fuente de verdad es
-`career-os/data/*.yaml` y que tiene sus propias reglas de veracidad (`career-os/CLAUDE.md`).
-- `src/data/*.json` y `public/cv-{en,es,de}.pdf` son **generados**: nunca los edites a mano, el siguiente render los
-  sobrescribe. Cambia `career-os/data/` y ejecuta, desde `career-os`:
-  `.venv/bin/career validate && .venv/bin/career render all --publish` (genera siempre los 3 CVs).
-- Orden de proyectos y credenciales: campo `importance` en `career-os/data/`.
-- Imágenes de un proyecto: `public/projects/<id>/` (`.jpg` + `.webp` con el mismo nombre), declaradas en
-  `images:` del proyecto en `career-os/data/projects.yaml`.
+`career-os/biblioteca/` y `career-os/data/*.yaml`, y que tiene sus propias reglas de veracidad (`career-os/CLAUDE.md`).
+- `src/data/*.json`, `public/projects/` y `public/cv-{en,es}.pdf` son **generados**: nunca los edites a mano, el
+  siguiente render los sobrescribe. Cambia la fuente en `career-os` y ejecuta allí `/sync`.
+- Orden de proyectos y credenciales: campo `importance` de cada `ficha.yaml` en `career-os/biblioteca/`.
+- Imágenes de un proyecto: en su carpeta `capturas/` de `career-os/biblioteca/proyectos/<id>/`, declaradas en `images:`
+  de su `ficha.yaml`.
 
 ## Qué sí se cambia aquí
 Diseño y código de la web: `src/components/`, `src/styles/`, `src/App.tsx`, `src/lib.ts`, `index.html`, `public/`
-(salvo lo generado). Si añades un campo nuevo al JSON, añádelo también en `career-os` (`careeros/schema.py` y
+(salvo lo generado). No hay CV en alemán: la web en alemán ofrece el inglés. Si añades un campo nuevo al JSON, añádelo también en `career-os` (`careeros/schema.py` y
 `careeros/render/portfolio.py`).
 
 ## Comprobar y desplegar

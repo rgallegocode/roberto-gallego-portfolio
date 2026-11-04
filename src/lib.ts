@@ -29,15 +29,16 @@ export const suitPaths: Record<Suit, string> = {
   clubs: 'M12 2.4a4.1 4.1 0 0 0-4.1 4.1c0 .6.1 1.2.3 1.7a4.1 4.1 0 1 0 2.5 7.5c-.1 3.8-.7 5.6-2.3 6.7h7.2c-1.6-1.1-2.2-2.9-2.3-6.7a4.1 4.1 0 1 0 2.5-7.5c.2-.5.3-1.1.3-1.7A4.1 4.1 0 0 0 12 2.4Z',
 }
 
+// there is no German CV: the German site offers the English one
 const cvFiles: Record<Language, string> = {
   en: 'cv-en.pdf',
   es: 'cv-es.pdf',
-  de: 'cv-de.pdf',
+  de: 'cv-en.pdf',
 }
 
 export const assetPath = (file: string) => `${import.meta.env.BASE_URL}${file}`
 export const cvHref = (language: Language) => assetPath(cvFiles[language])
-export const cvDownloadName = (language: Language) => `Roberto-Gallego-CV-${language}.pdf`
+export const cvDownloadName = (language: Language) => `Roberto-Gallego-CV-${language === 'es' ? 'es' : 'en'}.pdf`
 
 // Content lives in /data/*.yaml at the repo root and is rendered into ./data/*.json by `career render`.
 // Do not edit those JSON files by hand.

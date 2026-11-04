@@ -4,7 +4,7 @@ Web personal con estética de póker, hecha con Vite y React y publicada en http
 
 ## Lo importante
 
-- **El contenido no se edita aquí.** `src/data/*.json` y `public/cv-*.pdf` los genera `career-os` y se sobrescriben en cada render. Aquí solo se cambian el diseño y el código.
+- **El contenido no se edita aquí.** `src/data/*.json`, `public/projects/` y `public/cv-*.pdf` los genera `career-os` y se sobrescriben en cada render. Aquí solo se cambian el diseño y el código.
 - **Un push a `main` publica la web**, pero solo si pasan las pruebas. Si fallan, la web sigue como estaba. En las demás ramas solo se ejecutan las pruebas.
 
 ## Comandos
