@@ -24,7 +24,11 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .ace-card { animation: none; }
-  .js-reveal [data-reveal] { opacity: 1; transform: none; transition: none; }
+  /* same selectors as the hidden state above, or their higher specificity wins and the cards stay face-down */
+  .js-reveal .project-card[data-reveal],
+  .js-reveal .skill-card[data-reveal],
+  .js-reveal .timeline-card[data-reveal],
+  .js-reveal .contact-card[data-reveal] { opacity: 1; transform: none; transition: none; }
   .project-card, .skill-card, .quote-card, .primary-button, .cv-link, .contact-chip,
   .topbar, .brand-card, .nav-suit, .table-rail i, .table-rail span { transition: none; }
 }

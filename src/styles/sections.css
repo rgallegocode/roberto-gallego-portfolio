@@ -33,7 +33,7 @@
 .project-card.suit-hearts { background: var(--red-card); color: #fff4ed; }
 .project-card.suit-diamonds { background: var(--gold-card); color: #14251f; }
 .project-card.suit-clubs { background: var(--sage-card); color: #14251f; }
-.project-card .card-eyebrow, .project-card .project-index { color: inherit; opacity: .78; }
+.project-card .card-eyebrow, .project-card .project-index { color: inherit; opacity: .95; }
 .project-card.suit-spades .project-suit, .project-card.suit-clubs .project-suit { color: var(--green); }
 .project-card.suit-hearts .project-suit { color: var(--cream); }
 .project-card.suit-diamonds .project-suit { color: var(--green); }
@@ -87,7 +87,7 @@
 .skill-corner { position: absolute; top: 14px; right: 16px; display: flex; flex-direction: column; align-items: center; gap: 2px; font: 500 .9rem/1 var(--font-mono); color: var(--muted); }
 .skill-corner .suit-icon { width: 1.05rem; height: 1.05rem; }
 .skill-corner.bottom { top: auto; right: auto; bottom: 14px; left: 16px; transform: rotate(180deg); }
-.skill-title { margin: 0; max-width: 80%; font: 500 1.35rem var(--font-serif); }
+.skill-title { margin: 0; max-width: 80%; font: 500 1.35rem var(--font-serif); overflow-wrap: break-word; hyphens: auto; }
 .skill-items { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; max-width: 86%; }
 .skill-items li { padding: 4px 10px; border: 1px dashed rgba(213, 174, 110, .5); border-radius: 999px; color: var(--cream); font: .76rem var(--font-mono); }
 .spoken-languages { grid-column: 2; margin: 6px 0 0; color: var(--gold); font: .72rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
@@ -106,7 +106,8 @@
 .timeline-node { position: absolute; top: 14px; left: 20px; display: grid; place-items: center; width: 28px; height: 28px; border: 1px dashed var(--gold); border-radius: 50%; background: var(--green); }
 .timeline-node .suit-icon { width: 14px; height: 14px; }
 .timeline-step { position: absolute; top: 18px; right: 22px; color: var(--gold); font: .72rem var(--font-mono); letter-spacing: .1em; }
-.timeline-card h3 { margin: 0 0 10px; font: 500 1.4rem/1.2 var(--font-serif); }
+/* long German compounds must break inside the narrow columns */
+.timeline-card h3 { margin: 0 0 10px; font: 500 1.4rem/1.2 var(--font-serif); overflow-wrap: break-word; hyphens: auto; }
 .timeline-card p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.55; }
 .timeline-card p + p { margin-top: 10px; }
 .timeline-linkedin { display: inline-flex; align-items: center; gap: 8px; }
