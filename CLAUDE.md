@@ -18,6 +18,6 @@ Diseño y código de la web: `src/components/`, `src/styles/`, `src/App.tsx`, `s
 `careeros/render/portfolio.py`).
 
 ## Comprobar y desplegar
-- `npx tsc -b && npm run build`; vista previa con `npm run dev`. Revisa escritorio y móvil (sin scroll horizontal).
-- Desplegar = commit + `git push` a `main`: `.github/workflows/deploy.yml` publica GitHub Pages.
+- `npm test` (Playwright, en `tests/`: compila y comprueba maquetación, funcionamiento y contenido); vista previa con `npm run dev`.
+- Desplegar = commit + `git push` a `main`: `.github/workflows/deploy.yml` ejecuta las pruebas y, si pasan, publica GitHub Pages.
   Comprueba después que el run termina en `success` (`gh run list`).
