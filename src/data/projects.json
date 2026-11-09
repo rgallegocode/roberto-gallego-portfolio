@@ -62,7 +62,7 @@
       "suit": "diamonds",
       "eyebrow": "Distributed systems",
       "description": "A local tokenised bond platform running across a Dockerised Canton network.",
-      "detail": "Go API, Daml contracts, gRPC ledger integration and Playwright tests for issuance, transfers and burns.",
+      "detail": "Team of three. My part: the Go Ledger API integration over gRPC, DvP allocations, a real-time ledger listener and OpenTelemetry observability.",
       "stack": [
         "Go",
         "Daml",
@@ -151,7 +151,7 @@
       "suit": "diamonds",
       "eyebrow": "Sistemas distribuidos",
       "description": "Plataforma local de bonos tokenizados sobre una red Canton dockerizada.",
-      "detail": "API en Go, contratos Daml, integración gRPC con el ledger y pruebas Playwright.",
+      "detail": "Equipo de tres. Mi parte: la integración en Go con la Ledger API por gRPC, las asignaciones DvP, un listener del ledger en tiempo real y la observabilidad con OpenTelemetry.",
       "stack": [
         "Go",
         "Daml",
@@ -240,7 +240,7 @@
       "suit": "diamonds",
       "eyebrow": "Verteilte Systeme",
       "description": "Lokale Plattform für tokenisierte Anleihen auf einem dockerisierten Canton-Netzwerk.",
-      "detail": "Go-API, Daml-Verträge, gRPC-Ledger-Integration und Playwright-Tests.",
+      "detail": "Dreierteam. Mein Teil: die Go-Integration der Ledger API über gRPC, DvP-Allokationen, ein Echtzeit-Listener für das Ledger und Observability mit OpenTelemetry.",
       "stack": [
         "Go",
         "Daml",
