@@ -12,8 +12,9 @@ import { ProjectDeck } from './components/ProjectDeck'
 import { SocialIcon, SuitIcon } from './components/SuitIcon'
 import { cvDownloadName, cvHref } from './lib'
 
-function App() {
-  const [language, setLanguage] = useState<Language>(initialLanguage)
+/** `initial` fixes the language for the build-time render, where there is no browser to ask. */
+function App({ initial }: { initial?: Language }) {
+  const [language, setLanguage] = useState<Language>(initial ?? initialLanguage)
   const [isCompactHeader, setIsCompactHeader] = useState(false)
   const [isDeckOpen, setIsDeckOpen] = useState(false)
   const progressRef = useRef<HTMLDivElement>(null)
@@ -39,6 +40,9 @@ function App() {
   }, [language, t])
 
   useReveal(`${language}-${hasCredentials}`)
+
+  // the HTML arrives prerendered: this marks the moment React has taken over and the controls respond
+  useEffect(() => { document.documentElement.dataset.app = 'ready' }, [])
 
   useEffect(() => {
     let frame = 0

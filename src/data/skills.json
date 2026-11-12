@@ -2,67 +2,67 @@
   "en": [
     {
       "suit": "spades",
-      "title": "Backend",
-      "items": "Java · Spring Boot · JPA · REST · SQL"
+      "title": "Applied AI",
+      "items": "LangChain · LangGraph · MCP · smolagents"
     },
     {
-      "suit": "diamonds",
-      "title": "Infrastructure",
-      "items": "Docker · Linux · CI/CD · Nginx"
+      "suit": "hearts",
+      "title": "Backend",
+      "items": "REST · gRPC · Spring Boot · SQL · Distributed systems"
     },
     {
       "suit": "clubs",
       "title": "Languages",
-      "items": "Go · Python · TypeScript · JavaScript · C/C++ · Git"
+      "items": "Go · Python · Java · TypeScript"
     },
     {
-      "suit": "hearts",
-      "title": "Quality & systems",
-      "items": "JUnit · Mockito · Playwright · gRPC · Distributed systems"
+      "suit": "diamonds",
+      "title": "Infrastructure & quality",
+      "items": "Docker · Linux · GitHub Actions · pytest · Playwright"
     }
   ],
   "es": [
     {
       "suit": "spades",
-      "title": "Backend",
-      "items": "Java · Spring Boot · JPA · REST · SQL"
+      "title": "IA aplicada",
+      "items": "LangChain · LangGraph · MCP · smolagents"
     },
     {
-      "suit": "diamonds",
-      "title": "Infraestructura",
-      "items": "Docker · Linux · CI/CD · Nginx"
+      "suit": "hearts",
+      "title": "Backend",
+      "items": "REST · gRPC · Spring Boot · SQL · Distributed systems"
     },
     {
       "suit": "clubs",
       "title": "Lenguajes",
-      "items": "Go · Python · TypeScript · JavaScript · C/C++ · Git"
+      "items": "Go · Python · Java · TypeScript"
     },
     {
-      "suit": "hearts",
-      "title": "Calidad y sistemas",
-      "items": "JUnit · Mockito · Playwright · gRPC · Distributed systems"
+      "suit": "diamonds",
+      "title": "Infraestructura y calidad",
+      "items": "Docker · Linux · GitHub Actions · pytest · Playwright"
     }
   ],
   "de": [
     {
       "suit": "spades",
-      "title": "Backend",
-      "items": "Java · Spring Boot · JPA · REST · SQL"
+      "title": "Angewandte KI",
+      "items": "LangChain · LangGraph · MCP · smolagents"
     },
     {
-      "suit": "diamonds",
-      "title": "Infrastruktur",
-      "items": "Docker · Linux · CI/CD · Nginx"
+      "suit": "hearts",
+      "title": "Backend",
+      "items": "REST · gRPC · Spring Boot · SQL · Distributed systems"
     },
     {
       "suit": "clubs",
       "title": "Programmiersprachen",
-      "items": "Go · Python · TypeScript · JavaScript · C/C++ · Git"
+      "items": "Go · Python · Java · TypeScript"
     },
     {
-      "suit": "hearts",
-      "title": "Qualität und Systeme",
-      "items": "JUnit · Mockito · Playwright · gRPC · Distributed systems"
+      "suit": "diamonds",
+      "title": "Infrastruktur & Qualität",
+      "items": "Docker · Linux · GitHub Actions · pytest · Playwright"
     }
   ]
 }

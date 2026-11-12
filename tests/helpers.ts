@@ -25,7 +25,8 @@ export async function openIn(page: Page, language: Language) {
     }
   }, language)
   await page.goto('./')
-  await page.locator('h1').waitFor()
+  // the h1 is already in the prerendered HTML: wait until React has hydrated it
+  await page.locator('html[data-app="ready"]').waitFor({ state: 'attached' })
   await page.evaluate(() => document.fonts.ready)
 }
 
