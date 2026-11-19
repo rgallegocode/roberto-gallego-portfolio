@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { rankOf } from '../lib'
+import { rankOf, techDemand } from '../lib'
 import type { Project, UiStrings } from '../lib'
 import { SocialIcon, SuitIcon } from './SuitIcon'
+import { CaseStudyButton } from './CaseStudy'
 
 // the rest stay behind "more" so a long stack never pushes the cards out of view
 const visibleTechs = 12
@@ -26,11 +27,12 @@ export function ProjectDeck({ projects, labels, githubLabel, onClose }: Props) {
     if (dialog && !dialog.open) dialog.showModal()
   }, [])
 
-  // ordered by how many projects use each technology
+  // ordered by how often recruiters ask for each technology in the scanned offers; unknown ones last, by project count
   const techs = useMemo(() => {
     const totals = new Map<string, number>()
     for (const project of projects) for (const tech of project.stack) totals.set(tech, (totals.get(tech) ?? 0) + 1)
-    return [...totals.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([tech]) => tech)
+    const rank = (tech: string) => { const i = techDemand.indexOf(tech); return i < 0 ? Infinity : i }
+    return [...totals.entries()].sort((a, b) => rank(a[0]) - rank(b[0]) || b[1] - a[1] || a[0].localeCompare(b[0])).map(([tech]) => tech)
   }, [projects])
 
   const named = projects.filter((project) => normalize(project.name).includes(normalize(query.trim())))
@@ -91,7 +93,7 @@ export function ProjectDeck({ projects, labels, githubLabel, onClose }: Props) {
 
           {matches.length > 0 ? (
             <ul className="deck-grid">
-              {matches.map((project) => <DeckCard key={project.name} project={project} rank={rankOf(projects.indexOf(project))} githubLabel={githubLabel} />)}
+              {matches.map((project) => <DeckCard key={project.name} project={project} rank={rankOf(projects.indexOf(project))} githubLabel={githubLabel} labels={labels} />)}
             </ul>
           ) : (
             <div className="deck-empty">
@@ -105,7 +107,7 @@ export function ProjectDeck({ projects, labels, githubLabel, onClose }: Props) {
   )
 }
 
-function DeckCard({ project, rank, githubLabel }: { project: Project; rank: string; githubLabel: string }) {
+function DeckCard({ project, rank, githubLabel, labels }: { project: Project; rank: string; githubLabel: string; labels: UiStrings }) {
   return (
     <li className={`deck-card suit-${project.suit}`}>
       <div className="card-topline">
@@ -115,6 +117,7 @@ function DeckCard({ project, rank, githubLabel }: { project: Project; rank: stri
       <p className="card-eyebrow">{project.eyebrow}</p>
       <h3>{project.name}</h3>
       <p className="project-description">{project.description}</p>
+      <CaseStudyButton project={project} labels={labels} />
       <div className="project-bottom">
         <ul className="stack">{project.stack.map((item) => <li key={item}>{item}</li>)}</ul>
         <a className="project-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`${githubLabel}: ${project.name}`} title={githubLabel}><SocialIcon kind="github" /></a>

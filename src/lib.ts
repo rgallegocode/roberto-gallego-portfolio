@@ -4,9 +4,18 @@ import skillsData from './data/skills.json'
 import timelineData from './data/timeline.json'
 import credentialsData from './data/credentials.json'
 import profileData from './data/profile.json'
+import demandData from './data/demand.json'
 
 export type Language = 'en' | 'es' | 'de'
 export type Suit = 'spades' | 'hearts' | 'diamonds' | 'clubs'
+
+export type CaseBlock = {
+  h?: string
+  h3?: string
+  p?: string
+  ul?: string[]
+  table?: { head?: string[]; rows: string[][]; caption?: string }
+}
 
 export type Project = {
   name: string
@@ -17,6 +26,7 @@ export type Project = {
   stack: string[]
   href: string
   images: { src: string; alt: string }[]
+  caseStudy: CaseBlock[] | null
 }
 
 export const languages: Language[] = ['en', 'es', 'de']
@@ -55,6 +65,8 @@ export const credentials = credentialsData as Record<Language, {
   achievements: { title: string; description: string; date: string; url: string | null; suit: Suit }[]
 }>
 export const profile = profileData
+// every deck technology, most demanded in the scanned job offers first (career-os `career demand`)
+export const techDemand = demandData as string[]
 
 const storageKey = 'portfolio-language'
 
@@ -89,6 +101,7 @@ export type UiStrings = {
   skip: string; menu: string; mainNav: string; home: string; tableNav: string
   viewAll: string; deckTitle: string; close: string; searchLabel: string; searchPlaceholder: string; techLabel: string
   moreTechs: string; fewerTechs: string; results: string; clear: string; noMatch: string
+  readCase: string; openSource: string
 }
 
 /** Interface strings that are not part of the generated content JSON. */
@@ -97,15 +110,18 @@ export const uiStrings: Record<Language, UiStrings> = {
     skip: 'Skip to content', menu: 'Open menu', mainNav: 'Main navigation', home: 'Roberto Gallego Barbarán, back to top', tableNav: 'Section index',
     viewAll: 'See the whole deck', deckTitle: 'The whole deck', close: 'Close', searchLabel: 'Search by name', searchPlaceholder: 'Project name', techLabel: 'Filter by technology',
     moreTechs: 'More', fewerTechs: 'Fewer', results: '{shown} of {total} cards', clear: 'Clear filters', noMatch: 'No card matches this hand.',
+    readCase: 'Read the case study', openSource: 'See the pull request on GitHub',
   },
   es: {
     skip: 'Saltar al contenido', menu: 'Abrir menú', mainNav: 'Navegación principal', home: 'Roberto Gallego Barbarán, volver arriba', tableNav: 'Índice de secciones',
     viewAll: 'Ver toda la baraja', deckTitle: 'Toda la baraja', close: 'Cerrar', searchLabel: 'Buscar por nombre', searchPlaceholder: 'Nombre del proyecto', techLabel: 'Filtrar por tecnología',
     moreTechs: 'Más', fewerTechs: 'Menos', results: '{shown} de {total} cartas', clear: 'Quitar filtros', noMatch: 'Ninguna carta encaja con esta jugada.',
+    readCase: 'Leer el caso de estudio', openSource: 'Ver la pull request en GitHub',
   },
   de: {
     skip: 'Zum Inhalt springen', menu: 'Menü öffnen', mainNav: 'Hauptnavigation', home: 'Roberto Gallego Barbarán, nach oben', tableNav: 'Abschnittsindex',
     viewAll: 'Das ganze Deck ansehen', deckTitle: 'Das ganze Deck', close: 'Schließen', searchLabel: 'Nach Name suchen', searchPlaceholder: 'Projektname', techLabel: 'Nach Technologie filtern',
     moreTechs: 'Mehr', fewerTechs: 'Weniger', results: '{shown} von {total} Karten', clear: 'Filter entfernen', noMatch: 'Keine Karte passt zu diesem Blatt.',
+    readCase: 'Fallstudie lesen', openSource: 'Pull Request auf GitHub ansehen',
   },
 }

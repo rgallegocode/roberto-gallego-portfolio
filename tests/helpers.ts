@@ -7,7 +7,8 @@ export type Language = (typeof languages)[number]
 // Tests read the generated content, so adding a project or a credential never needs a test change.
 const readData = (name: string) => JSON.parse(readFileSync(new URL(`../src/data/${name}.json`, import.meta.url), 'utf8'))
 
-type Project = { name: string; description: string; stack: string[]; href: string; images: { src: string; alt: string }[] }
+type CaseBlock = { h?: string; h3?: string; p?: string; ul?: string[]; table?: { head?: string[]; rows: string[][]; caption?: string } }
+type Project = { name: string; description: string; stack: string[]; href: string; images: { src: string; alt: string }[]; caseStudy: CaseBlock[] | null }
 
 export const homeProjectCount = 3
 
@@ -15,6 +16,7 @@ export const copy: Record<Language, { title: string; nav: string[] }> = readData
 export const projects: Record<Language, Project[]> = readData('projects')
 export const skills: Record<Language, { title: string }[]> = readData('skills')
 export const timeline: Record<Language, { title: string }[]> = readData('timeline')
+export const techDemand: string[] = readData('demand')
 export const credentials: Record<Language, { certifications: unknown[]; achievements: unknown[] }> = readData('credentials')
 
 export async function openIn(page: Page, language: Language) {

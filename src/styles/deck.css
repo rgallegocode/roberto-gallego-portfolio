@@ -113,3 +113,30 @@ html:has(.deck-dialog[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .deck-button, .deck-close, .tech-chip, .deck-card, .credential, .poker-chip { transition: none; }
 }
+
+/* case study: the long write-up behind a project card */
+.case-open { align-self: flex-start; margin-top: 14px; padding: 8px 14px; border: 1px dashed var(--gold); border-radius: 999px; background: transparent; color: inherit; font: 500 .82rem var(--font-mono); cursor: pointer; transition: background .25s ease, color .25s ease; }
+.case-open:hover, .case-open:focus-visible { background: var(--gold); color: var(--felt); }
+.case-dialog { width: min(880px, calc(100vw - 32px)); }
+.case-dialog .deck-header .card-eyebrow { margin: 0 0 6px; }
+.case-body { max-width: 72ch; margin: 0 auto; font-size: .98rem; line-height: 1.65; }
+.case-body h3 { margin: 34px 0 10px; font: 600 1.45rem/1.2 var(--font-serif); color: var(--gold); }
+.case-body h3:first-child { margin-top: 0; }
+.case-body h4 { margin: 22px 0 6px; font: 600 1.05rem/1.3 var(--font-sans); }
+.case-body p, .case-body ul { margin: 0 0 12px; }
+.case-body ul { padding-left: 1.2em; }
+.case-body li { margin-bottom: 6px; }
+.case-body code { padding: 1px 5px; border-radius: 4px; background: rgba(0, 0, 0, .28); font: .86em var(--font-mono); overflow-wrap: anywhere; }
+.case-table { max-width: 100%; margin: 8px 0 18px; overflow-x: auto; border: 1px solid var(--rail); border-radius: 10px; }
+.case-table:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.case-table table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.case-table caption { caption-side: bottom; padding: 8px 12px; color: var(--muted); font-size: .8rem; text-align: left; }
+.case-table th, .case-table td { padding: 8px 12px; border-bottom: 1px solid var(--rail); text-align: left; vertical-align: top; }
+.case-table tr:last-child > * { border-bottom: 0; }
+.case-table thead th { color: var(--gold); font: 500 .78rem var(--font-mono); text-transform: uppercase; letter-spacing: .04em; }
+.case-table td:not(:first-child), .case-table thead th:not(:first-child) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.case-table tbody th { font-weight: 500; white-space: nowrap; }
+.case-footer { display: flex; align-items: center; gap: 12px; margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--rail); }
+.case-link { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); }
+.case-link .social-icon { width: 18px; height: 18px; }
+@media (prefers-reduced-motion: reduce) { .case-open { transition: none; } }

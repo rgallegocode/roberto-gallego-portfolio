@@ -1,6 +1,194 @@
 {
   "en": [
     {
+      "name": "jMetalPy: three bug fixes",
+      "suit": "spades",
+      "eyebrow": "Open source · Merged",
+      "description": "Three bug fixes for jMetalPy, a Python framework for multi-objective optimization with metaheuristics (600+ GitHub stars). The maintainer accepted two as they were and measured my first version of the third at 172.8 s on a test that took 1.55 s on main; I redesigned it with NumPy until the test ran as fast as on main, and the PR was merged.",
+      "detail": "10 commits, 6 files, +235/−13, regression tests for each fix; CI green on Python 3.11 and 3.12.",
+      "stack": [
+        "Python",
+        "NumPy",
+        "pytest",
+        "GitHub Actions"
+      ],
+      "href": "https://github.com/jMetal/jMetalPy/pull/194",
+      "images": [],
+      "caseStudy": [
+        {
+          "h": "Summary"
+        },
+        {
+          "p": "jMetalPy is the Python version of jMetal, an open-source framework for multi-objective optimization with metaheuristics (600+ GitHub stars). I found three bugs while reviewing the 1.10 release and fixed them in PR #194, with regression tests for each. The maintainer reviewed it, asked me to redesign one fix, and merged it."
+        },
+        {
+          "table": {
+            "head": [],
+            "rows": [
+              [
+                "Status",
+                "Merged on 18 November 2026"
+              ],
+              [
+                "CI",
+                "Green: ruff, build, pytest on Python 3.11 and 3.12"
+              ],
+              [
+                "Size",
+                "10 commits, 6 files, +235 / −13"
+              ],
+              [
+                "My role",
+                "External contributor (not a maintainer)"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "The three bugs"
+        },
+        {
+          "h3": "1. RE91 created invalid solutions"
+        },
+        {
+          "p": "What failed: `RE91.create_solution` returned solutions with NaN, or raised `OverflowError`, depending on the random generator."
+        },
+        {
+          "p": "Why: variables 7 to 10 of RE91 are random variables with infinite bounds. Sampling them gives NaN with `random.uniform` and `OverflowError` with `Generator.uniform`. The code then reset them with `solution.variables[i] = 0.0`, which did nothing: the `variables` property of `FloatSolution` returns a copy, so the assignment changed the copy and not the solution."
+        },
+        {
+          "p": "Fix: sample only the 7 decision variables and assign the whole list at once. Tests in `tests/problem/multiobjective/test_re91.py`."
+        },
+        {
+          "h3": "2. Comparator subclasses took the Pareto fast path"
+        },
+        {
+          "p": "What failed: `FastNonDominatedRanking` and the non-dominated archives silently treated comparator subclasses such as `GDominanceComparator` as plain Pareto dominance."
+        },
+        {
+          "p": "Why: they chose their vectorized and moocore fast paths with `isinstance(comparator, DominanceComparator)`. A subclass passes that check even though it defines dominance differently, so g-dominance was computed as Pareto dominance."
+        },
+        {
+          "p": "Fix: the fast paths now require the exact type, `type(comparator) is DominanceComparator`; any other comparator takes the general path. Tests in `tests/util/test_g_dominance_fast_paths.py`."
+        },
+        {
+          "h3": "3. add_batch kept duplicates that add rejects"
+        },
+        {
+          "p": "What failed: `NonDominatedSolutionsArchive.add_batch` kept exact duplicates and near-duplicates (within `objective_tolerance`) that `add()` rejects, so the same solutions gave a different archive depending on whether they were added one by one or in a batch."
+        },
+        {
+          "p": "Fix: `add_batch` now drops them as well and prefers the solutions already in the archive. Tests in `tests/util/test_archive.py`. My first version of this fix is the one the review stopped."
+        },
+        {
+          "h": "The review"
+        },
+        {
+          "p": "The maintainer ran the full suite on the branch, on its own and merged with #193, accepted the first two fixes as they were and asked for changes to the third."
+        },
+        {
+          "p": "My first duplicate filter was a Python loop that ran one NumPy operation per kept solution against all the solutions kept so far. Its cost grew with the square of the number of solutions, in the method that exists to avoid exactly that. The maintainer's measurement:"
+        },
+        {
+          "table": {
+            "head": [
+              "Test",
+              "main",
+              "First version"
+            ],
+            "rows": [
+              [
+                "`test_should_reach_the_expected_hypervolume_on_dtlz2_with_an_unbounded_archive`",
+                "1.55 s",
+                "172.8 s"
+              ]
+            ],
+            "caption": "Maintainer's machine. About 110x slower; the whole suite went from ~25 s to ~200 s."
+          }
+        },
+        {
+          "h3": "Redesign"
+        },
+        {
+          "ul": [
+            "Exact duplicates: removed with `np.unique(..., return_index=True)`. The lowest index wins, so solutions already in the archive are kept.",
+            "Near-duplicates: rows are sorted by a weighted sum of the objectives. Rows within `objective_tolerance` of each other always end up next to each other in that order, so the tolerance check only runs inside small groups of neighbours.",
+            "The weights are deliberately uneven, so linear fronts (such as DTLZ1) and objectives that are always 0 do not fall back to the full pairwise check."
+          ]
+        },
+        {
+          "h3": "Checks"
+        },
+        {
+          "ul": [
+            "Same result as the previous loop on 3000 random batches full of exact and near-duplicates, with 2 to 5 objectives.",
+            "The duplicate tests became a pytest `TestAddBatchDuplicates` class above the `__main__` block, parametrized over both archive classes, as the maintainer asked and `CODING_GUIDELINES.md` describes. It covers exact and near-duplicates, a chain of near-duplicates, three objectives that share a value, and a linear front.",
+            "`ruff check` clean."
+          ]
+        },
+        {
+          "h3": "Integration with #193"
+        },
+        {
+          "p": "#193 landed first and also touched `VectorizedNonDominatedSolutionsArchive`. I merged `main` into the branch and switched its `add_batch` from `isinstance(self.comparator, DominanceComparator)` to `type(self.comparator) is DominanceComparator`, matching the other fast paths. Results were not affected, because `add()` already checks the type first."
+        },
+        {
+          "h": "My measurements"
+        },
+        {
+          "p": "Taken on my own Windows machine, which is slower than the maintainer's, so each figure is compared with `main` on the same machine. The three versions: `main` before the PR, the redesigned PR, and the final branch after merging #193."
+        },
+        {
+          "table": {
+            "head": [
+              "Measurement",
+              "main",
+              "Redesigned PR",
+              "After merging #193"
+            ],
+            "rows": [
+              [
+                "DTLZ2 integration test with an unbounded archive",
+                "13.35 s",
+                "13.77 s",
+                "12.34 s"
+              ],
+              [
+                "Duplicate filtering alone, 20 000 solutions × 5 objectives (one fixed at 0)",
+                "—",
+                "0.04 s",
+                "—"
+              ],
+              [
+                "Full `make test`",
+                "not timed",
+                "1175 passed, 1 failed, 195.7 s",
+                "1176 passed, 1 failed, 173.7 s"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "The one failure is `tests/lab/test_experiment.py::TestExperimentRun::test_should_propagate_an_exception_raised_inside_a_job`, a `FileNotFoundError` in the multi-process run on Windows. It fails the same way on `main` on this machine, so it is not caused by the PR."
+        },
+        {
+          "p": "The first version compared every kept solution with all the previous ones, so its cost grew with the square of the batch. The redesign sorts once and only compares neighbours, and the integration test is back to the time it takes on `main`."
+        },
+        {
+          "h": "Correctness"
+        },
+        {
+          "p": "Before the PR, `add_batch` kept exact and near-duplicates that `add()` rejects. Now a batch insert keeps the same solutions as adding them one by one, which is what the new tests in `test_archive.py` check."
+        },
+        {
+          "h": "A note on performance"
+        },
+        {
+          "p": "This PR does not make jMetalPy faster, and it was not meant to. `add_batch` now filters duplicates it used to let through, and that extra work has a cost. The redesign only had to keep that cost small: on my machine the integration test went from 13.35 s on `main` to 13.77 s, and 12.34 s after merging #193, which I read as the same time rather than as a speedup."
+        }
+      ]
+    },
+    {
       "name": "Cava Agent",
       "suit": "clubs",
       "eyebrow": "AI agent · Live demo",
@@ -27,7 +215,8 @@
           "src": "projects/cava-bot/chat-answer.jpg",
           "alt": "Chat answer: the agent classifies the S&P 500 as a bull market from its SMA50/SMA200 tool"
         }
-      ]
+      ],
+      "caseStudy": null
     },
     {
       "name": "Intelligent Game Validation",
@@ -55,7 +244,8 @@
           "src": "projects/malackathon-game-validation/validator-report.jpg",
           "alt": "Self-contained HTML report with the checks, session video and step log"
         }
-      ]
+      ],
+      "caseStudy": null
     },
     {
       "name": "Canton Daml IOBuilders UMA",
@@ -70,7 +260,8 @@
         "Docker"
       ],
       "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA",
-      "images": []
+      "images": [],
+      "caseStudy": null
     },
     {
       "name": "Bancosol Campaigns",
@@ -85,10 +276,199 @@
         "JWT"
       ],
       "href": "https://github.com/rgallegocode/Bancosol",
-      "images": []
+      "images": [],
+      "caseStudy": null
     }
   ],
   "es": [
+    {
+      "name": "jMetalPy: tres correcciones",
+      "suit": "spades",
+      "eyebrow": "Open source · Mergeada",
+      "description": "Tres correcciones de bugs en jMetalPy, un framework de Python para optimización multiobjetivo con metaheurísticas (600+ estrellas en GitHub). El maintainer aceptó dos tal cual y midió mi primera versión de la tercera en 172,8 s en un test que en main tardaba 1,55 s; la rediseñé con NumPy hasta que el test tardó lo mismo que en main, y la PR se mergeó.",
+      "detail": "10 commits, 6 archivos, +235/−13 y tests de regresión para cada corrección; CI en verde en Python 3.11 y 3.12.",
+      "stack": [
+        "Python",
+        "NumPy",
+        "pytest",
+        "GitHub Actions"
+      ],
+      "href": "https://github.com/jMetal/jMetalPy/pull/194",
+      "images": [],
+      "caseStudy": [
+        {
+          "h": "Resumen"
+        },
+        {
+          "p": "jMetalPy es la versión en Python de jMetal, un framework open source de optimización multiobjetivo con metaheurísticas (600+ estrellas en GitHub). Encontré tres bugs revisando la release 1.10 y los corregí en la PR #194, con tests de regresión para cada uno. El maintainer la revisó, me pidió rediseñar una de las correcciones y la mergeó."
+        },
+        {
+          "table": {
+            "head": [],
+            "rows": [
+              [
+                "Estado",
+                "Mergeada el 18 de noviembre de 2026"
+              ],
+              [
+                "CI",
+                "En verde: ruff, build y pytest en Python 3.11 y 3.12"
+              ],
+              [
+                "Tamaño",
+                "10 commits, 6 archivos, +235 / −13"
+              ],
+              [
+                "Mi papel",
+                "Contribuidor externo (no mantenedor)"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Los tres bugs"
+        },
+        {
+          "h3": "1. RE91 creaba soluciones inválidas"
+        },
+        {
+          "p": "Qué fallaba: `RE91.create_solution` devolvía soluciones con NaN o lanzaba `OverflowError`, según el generador aleatorio."
+        },
+        {
+          "p": "Por qué: las variables 7 a 10 de RE91 son variables aleatorias con límites infinitos. Al muestrearlas, `random.uniform` da NaN y `Generator.uniform` lanza `OverflowError`. Después el código las ponía a cero con `solution.variables[i] = 0.0`, que no hacía nada: la propiedad `variables` de `FloatSolution` devuelve una copia, así que la asignación cambiaba la copia y no la solución."
+        },
+        {
+          "p": "Arreglo: muestrear solo las 7 variables de decisión y asignar la lista entera de una vez. Tests en `tests/problem/multiobjective/test_re91.py`."
+        },
+        {
+          "h3": "2. Las subclases de comparador tomaban la ruta rápida de Pareto"
+        },
+        {
+          "p": "Qué fallaba: `FastNonDominatedRanking` y los archivos no dominados trataban en silencio subclases de comparador como `GDominanceComparator` como si fueran dominancia de Pareto."
+        },
+        {
+          "p": "Por qué: elegían sus rutas rápidas vectorizadas y de moocore con `isinstance(comparator, DominanceComparator)`. Una subclase pasa esa comprobación aunque defina la dominancia de otra forma, así que la g-dominancia se calculaba como dominancia de Pareto."
+        },
+        {
+          "p": "Arreglo: las rutas rápidas exigen ahora el tipo exacto, `type(comparator) is DominanceComparator`; cualquier otro comparador va por la ruta general. Tests en `tests/util/test_g_dominance_fast_paths.py`."
+        },
+        {
+          "h3": "3. add_batch conservaba duplicados que add rechaza"
+        },
+        {
+          "p": "Qué fallaba: `NonDominatedSolutionsArchive.add_batch` conservaba duplicados exactos y casi duplicados (dentro de `objective_tolerance`) que `add()` rechaza, así que las mismas soluciones daban un archivo distinto según se añadieran de una en una o por lotes."
+        },
+        {
+          "p": "Arreglo: `add_batch` también los descarta ahora y prefiere las soluciones que ya estaban en el archivo. Tests en `tests/util/test_archive.py`. La primera versión de esta corrección es la que paró la revisión."
+        },
+        {
+          "h": "La revisión"
+        },
+        {
+          "p": "El maintainer ejecutó la suite completa sobre la rama, sola y combinada con la #193, aceptó las dos primeras correcciones tal cual y pidió cambios en la tercera."
+        },
+        {
+          "p": "Mi primer filtro de duplicados era un bucle de Python que hacía una operación de NumPy por cada solución conservada contra todas las conservadas hasta entonces. Su coste crecía con el cuadrado del número de soluciones, justo en el método que existe para evitarlo. La medición del maintainer:"
+        },
+        {
+          "table": {
+            "head": [
+              "Test",
+              "main",
+              "Primera versión"
+            ],
+            "rows": [
+              [
+                "`test_should_reach_the_expected_hypervolume_on_dtlz2_with_an_unbounded_archive`",
+                "1,55 s",
+                "172,8 s"
+              ]
+            ],
+            "caption": "Máquina del maintainer. Unas 110 veces más lento; la suite completa pasó de ~25 s a ~200 s."
+          }
+        },
+        {
+          "h3": "Rediseño"
+        },
+        {
+          "ul": [
+            "Duplicados exactos: se eliminan con `np.unique(..., return_index=True)`. Gana el índice más bajo, así que se quedan las soluciones que ya estaban en el archivo.",
+            "Casi duplicados: las filas se ordenan por una suma ponderada de los objetivos. Las que están a menos de `objective_tolerance` entre sí quedan siempre juntas en ese orden, así que la comprobación de tolerancia solo se hace dentro de grupos pequeños de vecinos.",
+            "Los pesos son desiguales a propósito, para que los frentes lineales (como DTLZ1) y los objetivos que siempre valen 0 no caigan en la comprobación completa por pares."
+          ]
+        },
+        {
+          "h3": "Comprobaciones"
+        },
+        {
+          "ul": [
+            "Mismo resultado que el bucle anterior en 3000 lotes aleatorios llenos de duplicados exactos y casi duplicados, con 2 a 5 objetivos.",
+            "Los tests de duplicados pasaron a ser una clase pytest `TestAddBatchDuplicates` encima del bloque `__main__`, parametrizada sobre las dos clases de archivo, como pidió el maintainer y describe `CODING_GUIDELINES.md`. Cubre duplicados exactos y casi duplicados, una cadena de casi duplicados, tres objetivos que comparten un valor y un frente lineal.",
+            "`ruff check` sin avisos."
+          ]
+        },
+        {
+          "h3": "Integración con la #193"
+        },
+        {
+          "p": "La #193 entró antes y también tocaba `VectorizedNonDominatedSolutionsArchive`. Hice merge de `main` en la rama y cambié su `add_batch` de `isinstance(self.comparator, DominanceComparator)` a `type(self.comparator) is DominanceComparator`, igual que en las otras rutas rápidas. Los resultados no cambiaban, porque `add()` ya comprueba el tipo antes."
+        },
+        {
+          "h": "Mis mediciones"
+        },
+        {
+          "p": "Hechas en mi propia máquina con Windows, más lenta que la del maintainer, así que cada cifra se compara con `main` en la misma máquina. Las tres versiones: `main` antes de la PR, la PR rediseñada y la rama final tras el merge de la #193."
+        },
+        {
+          "table": {
+            "head": [
+              "Medición",
+              "main",
+              "PR rediseñada",
+              "Tras el merge de la #193"
+            ],
+            "rows": [
+              [
+                "Test de integración DTLZ2 con archivo no acotado",
+                "13,35 s",
+                "13,77 s",
+                "12,34 s"
+              ],
+              [
+                "Solo el filtrado de duplicados, 20 000 soluciones × 5 objetivos (uno fijo a 0)",
+                "—",
+                "0,04 s",
+                "—"
+              ],
+              [
+                "`make test` completo",
+                "sin medir",
+                "1175 correctos, 1 fallo, 195,7 s",
+                "1176 correctos, 1 fallo, 173,7 s"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "El único fallo es `tests/lab/test_experiment.py::TestExperimentRun::test_should_propagate_an_exception_raised_inside_a_job`, un `FileNotFoundError` en la ejecución multiproceso en Windows. Falla igual en `main` en esta máquina, así que no lo causa la PR."
+        },
+        {
+          "p": "La primera versión comparaba cada solución conservada con todas las anteriores, así que su coste crecía con el cuadrado del lote. El rediseño ordena una vez y solo compara vecinos, y el test de integración vuelve a tardar lo mismo que en `main`."
+        },
+        {
+          "h": "Corrección"
+        },
+        {
+          "p": "Antes de la PR, `add_batch` conservaba duplicados exactos y casi duplicados que `add()` rechaza. Ahora una inserción por lotes conserva las mismas soluciones que añadirlas de una en una, que es lo que comprueban los tests nuevos de `test_archive.py`."
+        },
+        {
+          "h": "Una nota sobre el rendimiento"
+        },
+        {
+          "p": "Esta PR no hace jMetalPy más rápido, ni lo pretendía. `add_batch` filtra ahora duplicados que antes dejaba pasar, y ese trabajo extra tiene un coste. El rediseño solo tenía que mantenerlo pequeño: en mi máquina el test de integración pasó de 13,35 s en `main` a 13,77 s, y a 12,34 s tras el merge de la #193, lo que leo como el mismo tiempo y no como una mejora."
+        }
+      ]
+    },
     {
       "name": "Cava Agent",
       "suit": "clubs",
@@ -116,7 +496,8 @@
           "src": "projects/cava-bot/chat-answer.jpg",
           "alt": "Respuesta del chat: el agente clasifica el S&P 500 como bull market con su herramienta SMA50/SMA200"
         }
-      ]
+      ],
+      "caseStudy": null
     },
     {
       "name": "Validación Inteligente de Juegos",
@@ -144,7 +525,8 @@
           "src": "projects/malackathon-game-validation/validator-report.jpg",
           "alt": "Informe HTML autónomo con las comprobaciones, el vídeo de la sesión y los pasos"
         }
-      ]
+      ],
+      "caseStudy": null
     },
     {
       "name": "Canton Daml IOBuilders UMA",
@@ -159,7 +541,8 @@
         "Docker"
       ],
       "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA",
-      "images": []
+      "images": [],
+      "caseStudy": null
     },
     {
       "name": "Bancosol Campañas",
@@ -174,10 +557,199 @@
         "JWT"
       ],
       "href": "https://github.com/rgallegocode/Bancosol",
-      "images": []
+      "images": [],
+      "caseStudy": null
     }
   ],
   "de": [
+    {
+      "name": "jMetalPy: drei Bugfixes",
+      "suit": "spades",
+      "eyebrow": "Open Source · Gemergt",
+      "description": "Drei Bugfixes für jMetalPy, ein Python-Framework für multikriterielle Optimierung mit Metaheuristiken (600+ GitHub-Sterne). Zwei übernahm der Maintainer direkt; meine erste Version des dritten brauchte bei ihm 172,8 s für einen Test, der auf main 1,55 s lief. Ich habe sie mit NumPy neu entworfen, bis der Test wieder so schnell wie auf main war, danach wurde der PR gemergt.",
+      "detail": "10 Commits, 6 Dateien, +235/−13, Regressionstests für jeden Fix; CI grün auf Python 3.11 und 3.12.",
+      "stack": [
+        "Python",
+        "NumPy",
+        "pytest",
+        "GitHub Actions"
+      ],
+      "href": "https://github.com/jMetal/jMetalPy/pull/194",
+      "images": [],
+      "caseStudy": [
+        {
+          "h": "Überblick"
+        },
+        {
+          "p": "jMetalPy ist die Python-Version von jMetal, einem Open-Source-Framework für multikriterielle Optimierung mit Metaheuristiken (600+ GitHub-Sterne). Beim Review des 1.10-Releases bin ich auf drei Bugs gestoßen und habe sie in PR #194 behoben, jeweils mit Regressionstests. Der Maintainer hat den PR geprüft, einen Fix neu entwerfen lassen und ihn dann gemergt."
+        },
+        {
+          "table": {
+            "head": [],
+            "rows": [
+              [
+                "Status",
+                "Gemergt am 18. November 2026"
+              ],
+              [
+                "CI",
+                "Grün: ruff, build und pytest auf Python 3.11 und 3.12"
+              ],
+              [
+                "Umfang",
+                "10 Commits, 6 Dateien, +235 / −13"
+              ],
+              [
+                "Meine Rolle",
+                "Externer Contributor (kein Maintainer)"
+              ]
+            ]
+          }
+        },
+        {
+          "h": "Die drei Bugs"
+        },
+        {
+          "h3": "1. RE91 erzeugte ungültige Lösungen"
+        },
+        {
+          "p": "Fehler: `RE91.create_solution` lieferte je nach Zufallsgenerator Lösungen mit NaN oder warf einen `OverflowError`."
+        },
+        {
+          "p": "Ursache: Die Variablen 7 bis 10 von RE91 sind Zufallsvariablen mit unendlichen Grenzen. Beim Sampling liefert `random.uniform` NaN und `Generator.uniform` wirft `OverflowError`. Danach setzte der Code sie mit `solution.variables[i] = 0.0` zurück, was nichts bewirkte: Die Property `variables` von `FloatSolution` gibt eine Kopie zurück, die Zuweisung änderte also die Kopie und nicht die Lösung."
+        },
+        {
+          "p": "Fix: Nur die 7 Entscheidungsvariablen werden gesampelt, und die Liste wird als Ganzes zugewiesen. Tests in `tests/problem/multiobjective/test_re91.py`."
+        },
+        {
+          "h3": "2. Comparator-Unterklassen nahmen den Pareto-Fast-Path"
+        },
+        {
+          "p": "Fehler: `FastNonDominatedRanking` und die nicht-dominierten Archive behandelten Comparator-Unterklassen wie `GDominanceComparator` stillschweigend als normale Pareto-Dominanz."
+        },
+        {
+          "p": "Ursache: Sie wählten ihre vektorisierten und moocore-Fast-Paths per `isinstance(comparator, DominanceComparator)`. Eine Unterklasse besteht diese Prüfung, obwohl sie Dominanz anders definiert, also wurde g-Dominanz als Pareto-Dominanz berechnet."
+        },
+        {
+          "p": "Fix: Die Fast-Paths verlangen jetzt genau den Typ, `type(comparator) is DominanceComparator`; jeder andere Comparator nimmt den allgemeinen Pfad. Tests in `tests/util/test_g_dominance_fast_paths.py`."
+        },
+        {
+          "h3": "3. add_batch behielt Duplikate, die add ablehnt"
+        },
+        {
+          "p": "Fehler: `NonDominatedSolutionsArchive.add_batch` behielt exakte Duplikate und Beinahe-Duplikate (innerhalb von `objective_tolerance`), die `add()` ablehnt. Dieselben Lösungen ergaben also ein anderes Archiv, je nachdem, ob man sie einzeln oder als Batch hinzufügte."
+        },
+        {
+          "p": "Fix: `add_batch` verwirft sie jetzt ebenfalls und bevorzugt Lösungen, die schon im Archiv sind. Tests in `tests/util/test_archive.py`. Meine erste Version dieses Fixes ist die, die im Review gestoppt wurde."
+        },
+        {
+          "h": "Das Review"
+        },
+        {
+          "p": "Der Maintainer ließ die komplette Suite auf dem Branch laufen, einzeln und zusammen mit #193, übernahm die ersten beiden Fixes unverändert und bat beim dritten um Änderungen."
+        },
+        {
+          "p": "Mein erster Duplikatfilter war eine Python-Schleife, die pro behaltener Lösung eine NumPy-Operation gegen alle bisher behaltenen ausführte. Der Aufwand wuchs quadratisch mit der Zahl der Lösungen, ausgerechnet in der Methode, die genau das vermeiden soll. Die Messung des Maintainers:"
+        },
+        {
+          "table": {
+            "head": [
+              "Test",
+              "main",
+              "Erste Version"
+            ],
+            "rows": [
+              [
+                "`test_should_reach_the_expected_hypervolume_on_dtlz2_with_an_unbounded_archive`",
+                "1,55 s",
+                "172,8 s"
+              ]
+            ],
+            "caption": "Rechner des Maintainers. Etwa 110-mal langsamer; die ganze Suite stieg von ~25 s auf ~200 s."
+          }
+        },
+        {
+          "h3": "Neuentwurf"
+        },
+        {
+          "ul": [
+            "Exakte Duplikate: werden mit `np.unique(..., return_index=True)` entfernt. Der niedrigste Index gewinnt, Lösungen aus dem Archiv bleiben also erhalten.",
+            "Beinahe-Duplikate: Die Zeilen werden nach einer gewichteten Summe der Zielwerte sortiert. Zeilen, die innerhalb von `objective_tolerance` liegen, landen in dieser Reihenfolge immer nebeneinander, deshalb läuft die Toleranzprüfung nur innerhalb kleiner Gruppen von Nachbarn.",
+            "Die Gewichte sind bewusst ungleich, damit lineare Fronten (etwa DTLZ1) und Ziele, die immer 0 sind, nicht auf den vollständigen paarweisen Vergleich zurückfallen."
+          ]
+        },
+        {
+          "h3": "Prüfungen"
+        },
+        {
+          "ul": [
+            "Gleiches Ergebnis wie die vorherige Schleife bei 3000 zufälligen Batches voller exakter und Beinahe-Duplikate, mit 2 bis 5 Zielen.",
+            "Die Duplikat-Tests wurden zu einer pytest-Klasse `TestAddBatchDuplicates` oberhalb des `__main__`-Blocks, parametrisiert über beide Archivklassen, wie vom Maintainer gewünscht und in `CODING_GUIDELINES.md` beschrieben. Abgedeckt sind exakte und Beinahe-Duplikate, eine Kette von Beinahe-Duplikaten, drei Ziele mit einem gemeinsamen Wert und eine lineare Front.",
+            "`ruff check` ohne Befund."
+          ]
+        },
+        {
+          "h3": "Integration mit #193"
+        },
+        {
+          "p": "#193 wurde zuerst gemergt und änderte ebenfalls `VectorizedNonDominatedSolutionsArchive`. Ich habe `main` in den Branch gemergt und dort `add_batch` von `isinstance(self.comparator, DominanceComparator)` auf `type(self.comparator) is DominanceComparator` umgestellt, passend zu den anderen Fast-Paths. Auf die Ergebnisse hatte das keinen Einfluss, weil `add()` den Typ vorher prüft."
+        },
+        {
+          "h": "Meine Messungen"
+        },
+        {
+          "p": "Gemessen auf meinem eigenen Windows-Rechner, der langsamer ist als der des Maintainers. Jeder Wert wird deshalb mit `main` auf demselben Rechner verglichen. Die drei Versionen: `main` vor dem PR, der neu entworfene PR und der finale Branch nach dem Merge von #193."
+        },
+        {
+          "table": {
+            "head": [
+              "Messung",
+              "main",
+              "Neu entworfener PR",
+              "Nach Merge von #193"
+            ],
+            "rows": [
+              [
+                "DTLZ2-Integrationstest mit unbegrenztem Archiv",
+                "13,35 s",
+                "13,77 s",
+                "12,34 s"
+              ],
+              [
+                "Nur der Duplikatfilter, 20 000 Lösungen × 5 Ziele (eines fest auf 0)",
+                "—",
+                "0,04 s",
+                "—"
+              ],
+              [
+                "Kompletter `make test`",
+                "nicht gemessen",
+                "1175 bestanden, 1 fehlgeschlagen, 195,7 s",
+                "1176 bestanden, 1 fehlgeschlagen, 173,7 s"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Der eine Fehlschlag ist `tests/lab/test_experiment.py::TestExperimentRun::test_should_propagate_an_exception_raised_inside_a_job`, ein `FileNotFoundError` im Multiprozess-Lauf unter Windows. Er schlägt auf diesem Rechner auch auf `main` genauso fehl und kommt also nicht vom PR."
+        },
+        {
+          "p": "Die erste Version verglich jede behaltene Lösung mit allen vorherigen, der Aufwand wuchs also quadratisch mit dem Batch. Der Neuentwurf sortiert einmal und vergleicht nur Nachbarn, und der Integrationstest braucht wieder so lange wie auf `main`."
+        },
+        {
+          "h": "Korrektheit"
+        },
+        {
+          "p": "Vor dem PR behielt `add_batch` exakte und Beinahe-Duplikate, die `add()` ablehnt. Jetzt behält ein Batch-Insert dieselben Lösungen wie das einzelne Hinzufügen; genau das prüfen die neuen Tests in `test_archive.py`."
+        },
+        {
+          "h": "Zur Performance"
+        },
+        {
+          "p": "Dieser PR macht jMetalPy nicht schneller, und das war auch nicht das Ziel. `add_batch` filtert jetzt Duplikate, die vorher durchgingen, und diese zusätzliche Arbeit kostet Zeit. Der Neuentwurf musste diese Kosten nur klein halten: Auf meinem Rechner ging der Integrationstest von 13,35 s auf `main` auf 13,77 s, nach dem Merge von #193 auf 12,34 s. Das lese ich als gleiche Laufzeit, nicht als Beschleunigung."
+        }
+      ]
+    },
     {
       "name": "Cava Agent",
       "suit": "clubs",
@@ -205,7 +777,8 @@
           "src": "projects/cava-bot/chat-answer.jpg",
           "alt": "Chat-Antwort: Der Agent stuft den S&P 500 per SMA50/SMA200-Tool als Bullenmarkt ein"
         }
-      ]
+      ],
+      "caseStudy": null
     },
     {
       "name": "Intelligente Spielvalidierung",
@@ -233,7 +806,8 @@
           "src": "projects/malackathon-game-validation/validator-report.jpg",
           "alt": "Eigenständiger HTML-Bericht mit Prüfungen, Sitzungsvideo und Schrittprotokoll"
         }
-      ]
+      ],
+      "caseStudy": null
     },
     {
       "name": "Canton Daml IOBuilders UMA",
@@ -248,7 +822,8 @@
         "Docker"
       ],
       "href": "https://github.com/JavierStark/Project-CantonDaml-IoBuilders-UMA",
-      "images": []
+      "images": [],
+      "caseStudy": null
     },
     {
       "name": "Bancosol-Kampagnen",
@@ -263,7 +838,8 @@
         "JWT"
       ],
       "href": "https://github.com/rgallegocode/Bancosol",
-      "images": []
+      "images": [],
+      "caseStudy": null
     }
   ]
 }

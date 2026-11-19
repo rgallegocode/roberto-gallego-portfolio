@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
 import { assetPath, rankOf } from '../lib'
-import type { Project, Suit } from '../lib'
+import type { Project, Suit, UiStrings } from '../lib'
+import { CaseStudyButton } from './CaseStudy'
 import { SocialIcon, SuitIcon } from './SuitIcon'
 
 const rankLabels = ['A', 'K', 'Q', 'J']
@@ -35,7 +36,7 @@ function ProjectGallery({ images }: { images: Project['images'] }) {
   )
 }
 
-export function ProjectCard({ project, index, label }: { project: Project; index: number; label: string }) {
+export function ProjectCard({ project, index, label, labels }: { project: Project; index: number; label: string; labels: UiStrings }) {
   const featured = project.images.length > 0
   return (
     <article className={`project-card suit-${project.suit}${featured ? ' project-card-featured' : ''}`} data-reveal style={{ '--delay': `${index * 120}ms` } as CSSProperties}>
@@ -48,6 +49,7 @@ export function ProjectCard({ project, index, label }: { project: Project; index
         <h3>{project.name}</h3>
         <p className="project-description">{project.description}</p>
         <p className="project-detail">{project.detail}</p>
+        <CaseStudyButton project={project} labels={labels} />
         <div className="project-bottom">
           <ul className="stack">{project.stack.map((item) => <li key={item}>{item}</li>)}</ul>
           <a className="project-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`${label}: ${project.name}`} title={label}><SocialIcon kind="github" /></a>

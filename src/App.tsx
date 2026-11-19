@@ -120,7 +120,7 @@ function App({ initial }: { initial?: Language }) {
         <section className="section" id="projects" aria-labelledby="projects-title">
           <div className="section-heading"><p className="section-label">{label('projects', t.projectsLabel)}</p><h2 id="projects-title">{t.projectsTitle}</h2></div>
           <div className="table-felt">
-            <div className="project-grid">{allProjects.slice(0, homeProjectCount).map((project, index) => <ProjectCard key={project.href} project={project} index={index} label={t.viewGithub} />)}</div>
+            <div className="project-grid">{allProjects.slice(0, homeProjectCount).map((project, index) => <ProjectCard key={project.href} project={project} index={index} label={t.viewGithub} labels={ui} />)}</div>
             {allProjects.length > homeProjectCount && (
               <div className="table-foot">
                 <button type="button" className="deck-button" onClick={() => setIsDeckOpen(true)}>{ui.viewAll} <span className="deck-count">{allProjects.length}</span></button>
