@@ -4,7 +4,7 @@ Portfolio público en https://rgallegocode.github.io/roberto-gallego-portfolio/ 
 Idioma de trabajo con el usuario: español.
 
 ## De dónde sale el contenido
-El contenido **no se edita aquí**. Lo genera `career-os` (`~/Documents/GitHub/career-os`), cuya fuente de verdad es
+El contenido **no se edita aquí**. Lo genera `career-os` (`~/Documents/GitHub/career-optimizer`), cuya fuente de verdad es
 `career-os/biblioteca/` y `career-os/data/*.yaml`, y que tiene sus propias reglas de veracidad (`career-os/CLAUDE.md`).
 - `src/data/*.json`, `public/projects/` y `public/cv-{en,es}.pdf` son **generados**: nunca los edites a mano, el
   siguiente render los sobrescribe. Cambia la fuente en `career-os` y ejecuta allí `/sync`.
