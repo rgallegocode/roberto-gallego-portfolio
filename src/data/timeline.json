@@ -3,7 +3,7 @@
     {
       "suit": "hearts",
       "title": "AI & Automation Engineer Intern · DEKRA",
-      "detail": "September 2026 – March 2027 · Sole developer of a Python tool, now used by the EMC lab's technicians, that reviews radio test measurements as soon as they run. Deterministic rules flag the suspicious ones and an on-premise LLM explains each alert, citing the standard.",
+      "detail": "September 2026 – March 2027 · Sole developer of a Python tool, in production at the EMC lab, that reviews radio test measurements as soon as they run. Deterministic rules flag the suspicious ones and an on-premise LLM explains each alert, citing the standard.",
       "logo": "dekra-logo.svg"
     },
     {
@@ -29,7 +29,7 @@
     {
       "suit": "hearts",
       "title": "Prácticas en Ingeniería de IA y Automatización · DEKRA",
-      "detail": "Septiembre 2026 – Marzo 2027 · Desarrollador único de una herramienta en Python, ya en uso por los técnicos del laboratorio EMC, que revisa las medidas de ensayos de radio nada más ejecutarlas. Reglas deterministas señalan las sospechosas y un LLM local explica cada alerta citando la norma.",
+      "detail": "Septiembre 2026 – Marzo 2027 · Desarrollador único de una herramienta en Python, en producción en el laboratorio EMC, que revisa las medidas de ensayos de radio nada más ejecutarlas. Reglas deterministas señalan las sospechosas y un LLM local explica cada alerta citando la norma.",
       "logo": "dekra-logo.svg"
     },
     {
