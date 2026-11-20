@@ -270,7 +270,7 @@
       "description": "A food-collection campaign platform with a role-aware Captain module.",
       "detail": "Layered Spring MVC architecture with authenticated-user filtering, JWT access control and MariaDB persistence.",
       "stack": [
-        "Java 17",
+        "Java",
         "Spring Boot",
         "JPA",
         "JWT"
@@ -551,7 +551,7 @@
       "description": "Plataforma de campañas de recogida de alimentos con un módulo específico para capitanes.",
       "detail": "Arquitectura Spring MVC por capas, filtrado por usuario autenticado, control JWT y persistencia MariaDB.",
       "stack": [
-        "Java 17",
+        "Java",
         "Spring Boot",
         "JPA",
         "JWT"
