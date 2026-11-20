@@ -204,11 +204,20 @@ test.describe('deal-on-scroll animation', () => {
 })
 
 test.describe('browser language', () => {
-  test.use({ locale: 'de-DE' })
+  test.use({ locale: 'es-ES' })
 
   test('is used on the first visit', async ({ page }) => {
     await page.goto('./')
-    await expect(page.locator('html')).toHaveAttribute('lang', 'de')
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es')
+  })
+
+  test.describe('when it is not offered', () => {
+    test.use({ locale: 'de-DE' })
+
+    test('falls back to English', async ({ page }) => {
+      await page.goto('./')
+      await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+    })
   })
 })
 

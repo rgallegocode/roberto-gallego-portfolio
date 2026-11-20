@@ -21,7 +21,7 @@ npx playwright show-report          # abre el informe de la última ejecución
 
 Están en `tests/` y abren la web compilada en Chromium:
 
-- `layout.spec.ts`: que nada se descuadre, en 5 anchos de pantalla y 3 idiomas.
+- `layout.spec.ts`: que nada se descuadre, en 5 anchos de pantalla y 2 idiomas.
 - `behaviour.spec.ts`: que funcionen la navegación, el menú móvil, los idiomas, la galería y la animación.
 - `content.spec.ts`: que se vea todo el contenido, que carguen las imágenes y los PDF, y que no haya problemas graves de accesibilidad.
 

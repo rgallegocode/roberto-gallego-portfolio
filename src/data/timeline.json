@@ -3,7 +3,7 @@
     {
       "suit": "hearts",
       "title": "AI & Automation Engineer Intern · DEKRA",
-      "detail": "September 2026 – March 2027 · Working on software engineering projects, process automation, and AI-driven solutions.",
+      "detail": "September 2026 – March 2027 · Sole developer of a Python tool, now used by the EMC lab's technicians, that reviews radio test measurements as soon as they run. Deterministic rules flag the suspicious ones and an on-premise LLM explains each alert, citing the standard.",
       "logo": "dekra-logo.svg"
     },
     {
@@ -29,7 +29,7 @@
     {
       "suit": "hearts",
       "title": "Prácticas en Ingeniería de IA y Automatización · DEKRA",
-      "detail": "Septiembre 2026 – Marzo 2027 · Trabajando en proyectos de ingeniería de software, automatización de procesos y soluciones basadas en IA.",
+      "detail": "Septiembre 2026 – Marzo 2027 · Desarrollador único de una herramienta en Python, ya en uso por los técnicos del laboratorio EMC, que revisa las medidas de ensayos de radio nada más ejecutarlas. Reglas deterministas señalan las sospechosas y un LLM local explica cada alerta citando la norma.",
       "logo": "dekra-logo.svg"
     },
     {
@@ -48,32 +48,6 @@
       "suit": "diamonds",
       "title": "Extensión Universitaria en Tecnologías Blockchain · 490h",
       "detail": "Sistemas distribuidos, Solidity, smart contracts, Daml, Canton e infraestructura descentralizada.",
-      "logo": null
-    }
-  ],
-  "de": [
-    {
-      "suit": "hearts",
-      "title": "Praktikum als KI- & Automatisierungsingenieur · DEKRA",
-      "detail": "September 2026 – März 2027 · Arbeit an Softwaretechnik-Projekten, Prozessautomatisierung und KI-gestützten Lösungen.",
-      "logo": "dekra-logo.svg"
-    },
-    {
-      "suit": "diamonds",
-      "title": "Backend-Entwickler (Canton/DLT) · IOBuilders (Kooperation zwischen Universität und Industrie)",
-      "detail": "Mai 2026 – Juli 2026 · Plattform für tokenisierte Anleihen auf einem dockerisierten Canton-Netzwerk, mit Go-Backend und Daml-Verträgen.",
-      "logo": null
-    },
-    {
-      "suit": "spades",
-      "title": "Bachelor Softwaretechnik",
-      "detail": "Universität Málaga · 2023–2027 voraussichtlich",
-      "logo": null
-    },
-    {
-      "suit": "diamonds",
-      "title": "Universitäre Weiterbildung in Blockchain-Technologien · 490h",
-      "detail": "Verteilte Systeme, Solidity, Smart Contracts, Daml, Canton und dezentrale Infrastruktur.",
       "logo": null
     }
   ]

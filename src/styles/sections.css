@@ -112,7 +112,7 @@
 .timeline-node { position: absolute; top: 14px; left: 20px; display: grid; place-items: center; width: 28px; height: 28px; border: 1px dashed var(--gold); border-radius: 50%; background: var(--green); }
 .timeline-node .suit-icon { width: 14px; height: 14px; }
 .timeline-step { position: absolute; top: 18px; right: 22px; color: var(--gold); font: .72rem var(--font-mono); letter-spacing: .1em; }
-/* long German compounds must break inside the narrow columns */
+/* long words must break inside the narrow columns */
 .timeline-card h3 { margin: 0 0 10px; font: 500 1.4rem/1.2 var(--font-serif); overflow-wrap: break-word; hyphens: auto; }
 .timeline-card p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.55; }
 .timeline-card p + p { margin-top: 10px; }

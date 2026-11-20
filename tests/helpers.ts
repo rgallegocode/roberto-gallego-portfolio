@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import type { Page } from '@playwright/test'
 
-export const languages = ['en', 'es', 'de'] as const
+export const languages = ['en', 'es'] as const
 export type Language = (typeof languages)[number]
 
 // Tests read the generated content, so adding a project or a credential never needs a test change.

@@ -6,7 +6,7 @@ import credentialsData from './data/credentials.json'
 import profileData from './data/profile.json'
 import demandData from './data/demand.json'
 
-export type Language = 'en' | 'es' | 'de'
+export type Language = 'en' | 'es'
 export type Suit = 'spades' | 'hearts' | 'diamonds' | 'clubs'
 
 export type CaseBlock = {
@@ -29,7 +29,7 @@ export type Project = {
   caseStudy: CaseBlock[] | null
 }
 
-export const languages: Language[] = ['en', 'es', 'de']
+export const languages: Language[] = ['en', 'es']
 export const navSuits: Suit[] = ['spades', 'hearts', 'diamonds', 'clubs']
 
 export const suitPaths: Record<Suit, string> = {
@@ -39,16 +39,14 @@ export const suitPaths: Record<Suit, string> = {
   clubs: 'M12 2.4a4.1 4.1 0 0 0-4.1 4.1c0 .6.1 1.2.3 1.7a4.1 4.1 0 1 0 2.5 7.5c-.1 3.8-.7 5.6-2.3 6.7h7.2c-1.6-1.1-2.2-2.9-2.3-6.7a4.1 4.1 0 1 0 2.5-7.5c.2-.5.3-1.1.3-1.7A4.1 4.1 0 0 0 12 2.4Z',
 }
 
-// there is no German CV: the German site offers the English one
 const cvFiles: Record<Language, string> = {
   en: 'cv-en.pdf',
   es: 'cv-es.pdf',
-  de: 'cv-en.pdf',
 }
 
 export const assetPath = (file: string) => `${import.meta.env.BASE_URL}${file}`
 export const cvHref = (language: Language) => assetPath(cvFiles[language])
-export const cvDownloadName = (language: Language) => `Roberto-Gallego-CV-${language === 'es' ? 'es' : 'en'}.pdf`
+export const cvDownloadName = (language: Language) => `Roberto-Gallego-CV-${language}.pdf`
 
 // Content lives in /data/*.yaml at the repo root and is rendered into ./data/*.json by `career render`.
 // Do not edit those JSON files by hand.
@@ -73,12 +71,12 @@ const storageKey = 'portfolio-language'
 export function initialLanguage(): Language {
   try {
     const stored = localStorage.getItem(storageKey)
-    if (stored === 'en' || stored === 'es' || stored === 'de') return stored
+    if (stored === 'en' || stored === 'es') return stored
   } catch {
     // storage unavailable: fall through to the browser language
   }
   const browser = typeof navigator === 'undefined' ? '' : navigator.language.slice(0, 2).toLowerCase()
-  return browser === 'es' || browser === 'de' ? browser : 'en'
+  return browser === 'es' ? 'es' : 'en'
 }
 
 export function storeLanguage(language: Language) {
@@ -117,11 +115,5 @@ export const uiStrings: Record<Language, UiStrings> = {
     viewAll: 'Ver toda la baraja', deckTitle: 'Toda la baraja', close: 'Cerrar', searchLabel: 'Buscar por nombre', searchPlaceholder: 'Nombre del proyecto', techLabel: 'Filtrar por tecnología',
     moreTechs: 'Más', fewerTechs: 'Menos', results: '{shown} de {total} cartas', clear: 'Quitar filtros', noMatch: 'Ninguna carta encaja con esta jugada.',
     readCase: 'Leer el caso de estudio', openSource: 'Ver la pull request en GitHub',
-  },
-  de: {
-    skip: 'Zum Inhalt springen', menu: 'Menü öffnen', mainNav: 'Hauptnavigation', home: 'Roberto Gallego Barbarán, nach oben', tableNav: 'Abschnittsindex',
-    viewAll: 'Das ganze Deck ansehen', deckTitle: 'Das ganze Deck', close: 'Schließen', searchLabel: 'Nach Name suchen', searchPlaceholder: 'Projektname', techLabel: 'Nach Technologie filtern',
-    moreTechs: 'Mehr', fewerTechs: 'Weniger', results: '{shown} von {total} Karten', clear: 'Filter entfernen', noMatch: 'Keine Karte passt zu diesem Blatt.',
-    readCase: 'Fallstudie lesen', openSource: 'Pull Request auf GitHub ansehen',
   },
 }

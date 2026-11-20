@@ -14,7 +14,7 @@ El contenido **no se edita aquí**. Lo genera `career-os` (`~/Documents/GitHub/c
 
 ## Qué sí se cambia aquí
 Diseño y código de la web: `src/components/`, `src/styles/`, `src/App.tsx`, `src/lib.ts`, `index.html`, `public/`
-(salvo lo generado). No hay CV en alemán: la web en alemán ofrece el inglés. Si añades un campo nuevo al JSON, añádelo también en `career-os` (`careeros/schema.py` y
+(salvo lo generado). La web está en inglés y español, igual que los CVs. Si añades un campo nuevo al JSON, añádelo también en `career-os` (`careeros/schema.py` y
 `careeros/render/portfolio.py`).
 
 ## Comprobar y desplegar
